@@ -26,7 +26,7 @@ public class EventosCategoria extends AppCompatActivity{
 
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
-    int pos;
+    private int pos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -18,9 +18,6 @@
         android:numColumns="1"
         android:padding="1dp"
         android:clickable="true"
-        android:focusable="true"
-        >
+        android:focusable="true">
     </GridView>
-
-
 </LinearLayout>

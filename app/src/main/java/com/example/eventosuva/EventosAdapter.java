@@ -2,6 +2,7 @@ package com.example.eventosuva;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class EventosAdapter extends ArrayAdapter<Eventos> {
 
-    ArrayList<Eventos> listaEventosAdapter = new ArrayList<>();
+    private ArrayList<Eventos> listaEventosAdapter = new ArrayList<>();
  //   ArrayList<Eventos> listaRecem = new ArrayList<>();
     private Context context;
     private int layoutResourceId;
@@ -32,7 +33,6 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
        // listaRecem = recem;
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-
     }
 
     @Override
@@ -40,8 +40,9 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
         return super.getCount();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             View row = convertView;
             ViewHolder holder = null;
             if(row == null) {

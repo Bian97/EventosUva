@@ -53,7 +53,7 @@ public class EventosGridView extends AppCompatActivity {
             int escolha = pos;
             if(escolha == 0){
                 for(int i = 0; i < listaAuxiliar.size(); i++) {
-                    Eventos evento = null;
+                    Eventos evento;
                     evento = listaAuxiliar.get(i);
                     if(ec.adicRecente(evento.getDia(),evento.getMes(), evento.getAno())){
                         listaEventosEscolha.add(evento);
