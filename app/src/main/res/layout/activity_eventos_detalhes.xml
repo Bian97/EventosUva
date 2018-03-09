@@ -7,7 +7,6 @@
     tools:context="com.example.eventosuva.EventosDetalhes"
     android:orientation="vertical"
     android:background="@drawable/telaprincipal">
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -25,10 +24,9 @@
             android:layout_height="80dp"
             android:layout_weight="0.7"
             android:gravity="center"
-            android:scaleType="fitXY"
+            android:scaleType="centerInside"
             android:layout_gravity="center_horizontal"
-            android:onClick="onImagemDetalhesClick"
-            />
+            android:onClick="onImagemDetalhesClick"/>
         <TextView
             android:id="@+id/tituloDetalhe"
             android:layout_width="0dp"
@@ -38,8 +36,7 @@
             android:text="NOME"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -58,9 +55,6 @@
             android:text="INFORMAÇÕES SOBRE O EVENTO"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
     </LinearLayout>
-
-
 </LinearLayout>

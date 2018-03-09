@@ -6,22 +6,16 @@
     android:orientation="vertical"
     android:background="@drawable/telaprincipal"
     android:gravity="center" >
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:background="@drawable/uva"
             android:gravity="center" />
-
     </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,8 +32,7 @@
             android:text="ADICIONADOS RECENTES"
             android:textColor="#ffffff"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
@@ -52,9 +45,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/addrecentes"
-            />
-
+            android:src="@drawable/addrecentes"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,20 +63,17 @@
             android:text="EVENTOS DE HOJE"
             android:textColor="#ffffff"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf" />
+            android:background="#62cfcfcf"/>
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:layout_margin="10dp"
-            android:src="@drawable/hoje"
-            />
-
+            android:src="@drawable/hoje"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,8 +91,7 @@
             android:text="PRÓXIMOS 7 DIAS"
             android:textColor="#ffffff"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
@@ -114,10 +101,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:layout_margin="10dp"
-            android:src="@drawable/sete"
-            />
+            android:src="@drawable/sete"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,8 +119,7 @@
             android:text="EVENTOS ESTE MÊS"
             android:textColor="#ffffff"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
@@ -148,9 +132,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/calendario"
-            />
-
+            android:src="@drawable/calendario"/>
     </LinearLayout>
 
     <LinearLayout
@@ -169,8 +151,7 @@
             android:text="EVENTOS ESTE ANO"
             android:textColor="#ffffff"
             android:textSize="15sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
@@ -180,11 +161,6 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:layout_margin="10dp"
-            android:src="@drawable/timeline"
-            />
+            android:src="@drawable/timeline"/>
     </LinearLayout>
-
-
-
-
 </LinearLayout>
