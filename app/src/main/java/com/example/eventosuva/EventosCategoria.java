@@ -1,6 +1,7 @@
 package com.example.eventosuva;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,27 @@ public class EventosCategoria extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_categoria);
+        if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            //Toast.makeText(this, "Large screen",Toast.LENGTH_LONG).show();
+            Log.e("XAMPSON", "Large screen");
+            setContentView(R.layout.activity_grid_categoria);
+        }
+        else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+            //Toast.makeText(this, "Normal sized screen" , Toast.LENGTH_LONG).show();
+            Log.e("XAMPSON", "Normal screen");
+            setContentView(R.layout.activity_grid_categoria);
+        }
+        else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            //Toast.makeText(this, "Small sized screen" , Toast.LENGTH_LONG).show();
+            Log.e("XAMPSON", "Small screen");
+            setContentView(R.layout.activity_grid_categoria);
+        }
+        else {
+            //Toast.makeText(this, "Screen size is neither large, normal or small" , Toast.LENGTH_LONG).show();
+            Log.e("XAMPSON", "Nenhuma das screens");
+            setContentView(R.layout.activity_grid_categoria);
+        }
+        //setContentView(R.layout.activity_grid_categoria);
 
         Toast.makeText(this, "Criado por Bian Medeiros e Victor Franklin", Toast.LENGTH_LONG).show();
         try {
