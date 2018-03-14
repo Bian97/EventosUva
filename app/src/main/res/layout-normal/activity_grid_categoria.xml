@@ -9,11 +9,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center">
         <ImageView
-            android:layout_width="220dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
             android:background="@drawable/uva"/>
     </LinearLayout>
     <LinearLayout
@@ -26,15 +26,15 @@
         android:onClick="onRecentesClick">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="50dp"
             android:layout_weight="2.4"
             android:gravity="center"
             android:text="ADICIONADOS RECENTES"
             android:textColor="#ffffff"
-            android:textSize="23sp"
+            android:textSize="13sp"
             android:textStyle="bold"/>
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#62cfcfcf" />
         <ImageView
@@ -57,15 +57,15 @@
         android:onClick="onHojeClick">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="50dp"
             android:layout_weight="2.4"
             android:gravity="center"
             android:text="EVENTOS DE HOJE"
             android:textColor="#ffffff"
-            android:textSize="23sp"
+            android:textSize="13sp"
             android:textStyle="bold"/>
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#62cfcfcf"/>
         <ImageView
@@ -85,15 +85,15 @@
         android:weightSum="3">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="50dp"
             android:layout_weight="2.4"
             android:gravity="center"
             android:text="PRÓXIMOS 7 DIAS"
             android:textColor="#ffffff"
-            android:textSize="23sp"
+            android:textSize="13sp"
             android:textStyle="bold"/>
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#62cfcfcf" />
         <ImageView
@@ -113,15 +113,15 @@
         android:onClick="onMesClick">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="50dp"
             android:layout_weight="2.4"
             android:gravity="center"
             android:text="EVENTOS ESTE MÊS"
             android:textColor="#ffffff"
-            android:textSize="23sp"
+            android:textSize="13sp"
             android:textStyle="bold"/>
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#62cfcfcf" />
         <ImageView
@@ -137,7 +137,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         android:gravity="start"
         android:background="#003672"
@@ -145,15 +145,15 @@
         android:onClick="onAnoClick">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="90dp"
+            android:layout_height="50dp"
             android:layout_weight="2.4"
             android:gravity="center"
             android:text="EVENTOS ESTE ANO"
             android:textColor="#ffffff"
-            android:textSize="23sp"
+            android:textSize="13sp"
             android:textStyle="bold"/>
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#62cfcfcf" />
         <ImageView

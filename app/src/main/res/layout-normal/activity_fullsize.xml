@@ -9,7 +9,7 @@
         android:id="@+id/imagemFull"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
         android:scaleType="fitXY" />
 </LinearLayout>
