@@ -63,8 +63,11 @@ public class EventosCategoria extends AppCompatActivity{
         Toast.makeText(this, "Criado por Bian Medeiros e Victor Franklin", Toast.LENGTH_LONG).show();
         try {
             String chamadaWs;
+            Calendar hoje = Calendar.getInstance();
+            int m = hoje.get(Calendar.MONTH) +1;
+            int a = hoje.get(Calendar.YEAR);
 
-            chamadaWs = "http://profsicsu.com.br/prototipos/eventosUva/wsListData.php";
+            chamadaWs = "http://profsicsu.com.br/prototipos/eventosUva/wsListData.php?mes="+m+"&ano="+a;
             System.out.println("CHAMADAWS: "+chamadaWs);
 
            iniciarDownload(chamadaWs, "GET");
@@ -329,7 +332,12 @@ public class EventosCategoria extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(String result) {
-            listEventos(result);
+            if(result != null) {
+                listEventos(result);
+            } else {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reabra o aplicativo!", Toast.LENGTH_LONG);
+            }
         }
     }
 }
