@@ -1,8 +1,14 @@
 package com.example.eventosuva;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -10,6 +16,9 @@ import android.widget.GridView;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +32,9 @@ public class EventosGridView extends AppCompatActivity {
     ArrayList<Eventos> listaEventosEscolha = new ArrayList<>();
     ArrayList<Eventos> listaAuxiliar = new ArrayList<>();
     int pos;
+    ProgressDialog progressDialog;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +46,24 @@ public class EventosGridView extends AppCompatActivity {
         listaAuxiliar = getIntent().getParcelableArrayListExtra("auxiliar");
         inicializarEventos();
 
-        gridview.setAdapter(new EventosAdapter(this, R.layout.activity_grid_image, listaEventosEscolha));
-
-        //Ampliar imagem
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        new PegaImagemTeste(){
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(EventosGridView.this, EventosDetalhes.class);
-                intent.putExtra("position",position);
-                intent.putParcelableArrayListExtra("evento",listaEventosEscolha);
-                startActivity(intent);
+            public void onPostExecute(String result){
+                super.onPostExecute(result);
+                gridview.setAdapter(new EventosAdapter(EventosGridView.this, R.layout.activity_grid_image, listaEventosEscolha));
+                progressDialog.dismiss();
+
+                gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(EventosGridView.this, EventosDetalhes.class);
+                        intent.putExtra("position",position);
+                        intent.putParcelableArrayListExtra("evento",listaAuxiliar);
+                        startActivity(intent);
+                    }
+                });
             }
-        });
+        }.execute();
     }
 
     public void inicializarEventos(){
@@ -105,5 +122,35 @@ public class EventosGridView extends AppCompatActivity {
                     }
                 }
             }
+    }
+    public class PegaImagemTeste extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            Log.d("XAMPSON", "Baixando informações das imagens");
+            progressDialog = ProgressDialog.show(EventosGridView.this,"Aguarde um pouco.", "Carregando imagens...", false, false);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                for (int i = 0; i < listaEventosEscolha.size(); i++) {
+                    Bitmap aux = null;
+                    String arquivo = listaEventosEscolha.get(i).getCaminho();
+                    arquivo = arquivo.substring(arquivo.lastIndexOf("/") + 1);
+                    Log.d("XAMPSON", arquivo);
+                    URL url = new URL("http://profsicsu.com.br/prototipos/eventosUva/pegaImagem.php?arquivo=" + arquivo);
+                    aux = BitmapFactory.decodeStream((InputStream) url.openStream());
+                    Log.d("XAMPSON2", String.valueOf(aux));
+                    listaEventosEscolha.get(i).setImagem(aux);
+                    listaAuxiliar = listaEventosEscolha;
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

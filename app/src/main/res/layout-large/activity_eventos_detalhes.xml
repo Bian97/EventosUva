@@ -18,7 +18,7 @@
         android:gravity="start"
         android:weightSum="2"
         android:orientation="horizontal">
-        <com.loopj.android.image.SmartImageView
+        <ImageView
             android:id="@+id/imagemDetalhe"
             android:layout_width="0dp"
             android:layout_height="160dp"

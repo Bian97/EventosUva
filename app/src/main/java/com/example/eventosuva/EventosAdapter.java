@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
-import com.loopj.android.image.SmartImageView;
 
 import java.util.ArrayList;
 
@@ -58,11 +58,12 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
             }
             Eventos evento = listaEventosAdapter.get(position);
             holder.nome.setText(evento.getNome());
-            holder.imagem.setImageUrl(evento.getCaminho());
+            //holder.imagem.setImageUrl(evento.getCaminho());
+            holder.imagem.setImageBitmap(evento.getImagem());
             return row;
     }
     static class ViewHolder {
         TextView nome;
-        SmartImageView imagem;
+        ImageView imagem;
     }
 }

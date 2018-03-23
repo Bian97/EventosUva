@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/telaprincipal"
     android:gravity="center">
-    <com.loopj.android.image.SmartImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imagemFull"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

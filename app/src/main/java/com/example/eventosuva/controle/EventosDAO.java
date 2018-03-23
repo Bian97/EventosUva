@@ -1,6 +1,6 @@
 package com.example.eventosuva.controle;
 
-import com.google.gson.stream.MalformedJsonException;
+import android.util.MalformedJsonException;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

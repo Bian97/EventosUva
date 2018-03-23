@@ -1,7 +1,10 @@
 package com.example.eventosuva;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,10 @@ import com.example.eventosuva.modelo.Eventos;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -28,27 +35,26 @@ public class EventosCategoria extends AppCompatActivity{
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
     private int pos;
+    Bitmap imagem;
+    Eventos evento;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            //Toast.makeText(this, "Large screen",Toast.LENGTH_LONG).show();
             Log.e("XAMPSON", "Large screen");
             setContentView(R.layout.activity_grid_categoria);
         }
         else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            //Toast.makeText(this, "Normal sized screen" , Toast.LENGTH_LONG).show();
             Log.e("XAMPSON", "Normal screen");
             setContentView(R.layout.activity_grid_categoria);
         }
         else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-            //Toast.makeText(this, "Small sized screen" , Toast.LENGTH_LONG).show();
             Log.e("XAMPSON", "Small screen");
             setContentView(R.layout.activity_grid_categoria);
         }
         else {
-            //Toast.makeText(this, "Screen size is neither large, normal or small" , Toast.LENGTH_LONG).show();
             Log.e("XAMPSON", "Nenhuma das screens");
             setContentView(R.layout.activity_grid_categoria);
         }
@@ -68,7 +74,7 @@ public class EventosCategoria extends AppCompatActivity{
     }
 
     public void proximaActivity(int position){
-        Intent intent = new Intent(EventosCategoria.this,EventosGridView.class);
+        Intent intent = new Intent(EventosCategoria.this, EventosGridView.class);
         pos = position;
         intent.putExtra("pos",pos);
         for(int i = 0; i < listaEventosCategoria.size(); i++){
@@ -191,17 +197,17 @@ public class EventosCategoria extends AppCompatActivity{
     }
 
 
-    private void listEventos(String resposta){
-        Eventos evento = null;
+    private void listEventos(String resposta) {
+         evento = null;
         //EventosCategoria evt = new EventosCategoria();
-        try{
+        try {
             String json = null;
 
             json = resposta;
             Log.i("XAMPSON", json);
 
             JSONArray jA = new JSONArray(json);
-            for(int i = 0; i < jA.length(); i++){
+            for (int i = 0; i < jA.length(); i++) {
 
                 evento = new Eventos(jA.getJSONObject(i).getInt("codigo"),
                         jA.getJSONObject(i).getString("caminho"),
@@ -212,57 +218,57 @@ public class EventosCategoria extends AppCompatActivity{
                         jA.getJSONObject(i).getString("descricao"),
                         "Recem adicionados");
 
-                if(evento == null){
+                if (evento == null) {
                     eventos.clear();
                 } else {
-                    eventos.add(0,evento);
+                    eventos.add(0, evento);
                 }
             }
-
+            progressDialog.dismiss();
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if(diaAnterior(ev.getDia(),ev.getMes(), ev.getAno())){
+                if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
                 } else if (diaRecente(ev.getDia())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Recem adicionados", ev.getDescricao()));//categoria: hoje
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Recem adicionados", ev.getDescricao(), ev.getImagem()));
                     break;
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if(diaAnterior(ev.getDia(),ev.getMes(), ev.getAno())){
+                if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
-                } else if (diaDeHoje(ev.getDia(),ev.getMes(), ev.getAno())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Hoje", ev.getDescricao()));//categoria: hoje
+                } else if (diaDeHoje(ev.getDia(), ev.getMes(), ev.getAno())) {
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Hoje", ev.getDescricao(), ev.getImagem()));//categoria: hoje
                     break;
                 }
             }
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if(diaAnterior(ev.getDia(),ev.getMes(), ev.getAno())){
+                if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
-                } else if (diaDaSemana(ev.getDia(),ev.getMes(), ev.getAno())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Próximos 7 dias", ev.getDescricao()));//categoria: Próximos 7 dias
+                } else if (diaDaSemana(ev.getDia(), ev.getMes(), ev.getAno())) {
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Próximos 7 dias", ev.getDescricao(), ev.getImagem()));//categoria: Próximos 7 dias
                     break;
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if(diaAnterior(ev.getDia(),ev.getMes(), ev.getAno())){
+                if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
                 } else if (diaDoMes(ev.getDia(), ev.getMes())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Mês", ev.getDescricao()));//categoria: mes
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Mês", ev.getDescricao(), ev.getImagem()));//categoria: mes
                     break;
                 }
             }
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if(diaAnterior(ev.getDia(),ev.getMes(), ev.getAno())){
+                if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
                 } else if (diaDoAno(ev.getMes(), ev.getAno())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Ano", ev.getDescricao()));//categoria: ano
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Ano", ev.getDescricao(), ev.getImagem()));//categoria: ano
                     break;
                 }
             }
@@ -270,7 +276,7 @@ public class EventosCategoria extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(), "Não há eventos disponiveis", Toast.LENGTH_SHORT).show();
             }
 
-        } catch (JSONException e){
+        } catch (JSONException e) {
             eventos.clear();
             e.printStackTrace();
         } catch (Exception e){
@@ -306,6 +312,7 @@ public class EventosCategoria extends AppCompatActivity{
         protected void onPreExecute() {
             super.onPreExecute();
             exibirProgress(true);
+            progressDialog = ProgressDialog.show(EventosCategoria.this,"Aguarde um pouco.", "Carregando informações...", false, false);
         }
 
         @Override
