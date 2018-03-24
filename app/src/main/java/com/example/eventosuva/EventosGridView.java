@@ -46,12 +46,7 @@ public class EventosGridView extends AppCompatActivity {
         listaAuxiliar = getIntent().getParcelableArrayListExtra("auxiliar");
         inicializarEventos();
 
-        new PegaImagemTeste(){
-            @Override
-            public void onPostExecute(String result){
-                super.onPostExecute(result);
                 gridview.setAdapter(new EventosAdapter(EventosGridView.this, R.layout.activity_grid_image, listaEventosEscolha));
-                progressDialog.dismiss();
 
                 gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -62,8 +57,6 @@ public class EventosGridView extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-            }
-        }.execute();
     }
 
     public void inicializarEventos(){
@@ -122,35 +115,5 @@ public class EventosGridView extends AppCompatActivity {
                     }
                 }
             }
-    }
-    public class PegaImagemTeste extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            Log.d("XAMPSON", "Baixando informações das imagens");
-            progressDialog = ProgressDialog.show(EventosGridView.this,"Aguarde um pouco.", "Carregando imagens...", false, false);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                for (int i = 0; i < listaEventosEscolha.size(); i++) {
-                    Bitmap aux = null;
-                    String arquivo = listaEventosEscolha.get(i).getCaminho();
-                    arquivo = arquivo.substring(arquivo.lastIndexOf("/") + 1);
-                    Log.d("XAMPSON", arquivo);
-                    URL url = new URL("http://profsicsu.com.br/prototipos/eventosUva/pegaImagem.php?arquivo=" + arquivo);
-                    aux = BitmapFactory.decodeStream((InputStream) url.openStream());
-                    Log.d("XAMPSON2", String.valueOf(aux));
-                    listaEventosEscolha.get(i).setImagem(aux);
-                    listaAuxiliar = listaEventosEscolha;
-                }
-            } catch (IOException e){
-                e.printStackTrace();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 }

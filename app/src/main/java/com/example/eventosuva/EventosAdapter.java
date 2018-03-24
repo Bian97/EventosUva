@@ -2,6 +2,8 @@ package com.example.eventosuva;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +25,12 @@ import java.util.ArrayList;
 public class EventosAdapter extends ArrayAdapter<Eventos> {
 
     private ArrayList<Eventos> listaEventosAdapter = new ArrayList<>();
- //   ArrayList<Eventos> listaRecem = new ArrayList<>();
     private Context context;
     private int layoutResourceId;
 
     public EventosAdapter(Context context, int layoutResourceId, ArrayList<Eventos> lista) {
         super(context,layoutResourceId,lista);
         listaEventosAdapter = lista;
-       // listaRecem = recem;
         this.layoutResourceId = layoutResourceId;
         this.context = context;
     }
@@ -58,8 +58,8 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
             }
             Eventos evento = listaEventosAdapter.get(position);
             holder.nome.setText(evento.getNome());
-            //holder.imagem.setImageUrl(evento.getCaminho());
-            holder.imagem.setImageBitmap(evento.getImagem());
+            Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
+            holder.imagem.setImageBitmap(aux);
             return row;
     }
     static class ViewHolder {

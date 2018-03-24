@@ -15,7 +15,6 @@ public class Eventos implements Parcelable {
     private String caminho, nome;
     private int dia , mes, ano;
     private String categoria, descricao;
-    private Bitmap imagem;
 
     public Eventos(int codigo, String caminho, String nome, int dia, int mes, int ano, String descricao, String categoria) {
         this.codigo = codigo;
@@ -26,18 +25,6 @@ public class Eventos implements Parcelable {
         this.nome = nome;
         this.categoria = categoria;
         this.descricao = descricao;
-    }
-
-    public Eventos(int codigo, String caminho, String nome, int dia, int mes, int ano, String descricao, String categoria, Bitmap imagem) {
-        this.codigo = codigo;
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
-        this.caminho = caminho;
-        this.nome = nome;
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.imagem = imagem;
     }
 
     public int getCodigo() {
@@ -102,14 +89,6 @@ public class Eventos implements Parcelable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Bitmap getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Bitmap imagem) {
-        this.imagem = imagem;
     }
 
     protected Eventos(Parcel in) {

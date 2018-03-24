@@ -45,18 +45,11 @@ public class EventosDetalhes extends AppCompatActivity {
         position = getIntent().getIntExtra("position",0);
         Eventos evento = eventos.get(position);
 
-        new PegaImagemUnidade(){
-            @Override
-            protected void onPostExecute(Eventos evento){
-                super.onPostExecute(evento);
-                imagem.setImageBitmap(evento.getImagem());
-                eventos.get(position).setImagem(evento.getImagem());
-                text.setText(evento.getNome());
-                String dataS = evento.getDia()+"/"+evento.getMes()+"/"+evento.getAno();
-                data.setText("Data do Evento: " + dataS + "\nDescrição do Evento: " + evento.getDescricao());
-                progressDialog.dismiss();
-            }
-        }.execute(evento);
+        Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
+        imagem.setImageBitmap(aux);
+        text.setText(evento.getNome());
+        String dataS = evento.getDia()+"/"+evento.getMes()+"/"+evento.getAno();
+        data.setText("Data do Evento: " + dataS + "\nDescrição do Evento: " + evento.getDescricao());
 
         //imagem.setImageUrl(evento.getCaminho());
 
@@ -76,31 +69,5 @@ public class EventosDetalhes extends AppCompatActivity {
         intent.putExtra("bitmap", imageInByte);
         intent.putParcelableArrayListExtra("evento",eventos);
         startActivity(intent);
-    }
-
-    public class PegaImagemUnidade extends AsyncTask<Eventos, String, Eventos> {
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(EventosDetalhes.this,"Aguarde um pouco.", "Carregando dados...", false, false);
-        }
-
-        @Override
-        protected Eventos doInBackground(Eventos... evento) {
-            try {
-                Bitmap aux = null;
-                String arquivo = evento[0].getCaminho();
-                arquivo = arquivo.substring(arquivo.lastIndexOf("/") + 1);
-                Log.d("XAMPSON", arquivo);
-                URL url = new URL("http://profsicsu.com.br/prototipos/eventosUva/pegaImagem.php?arquivo=" + arquivo);
-                aux = BitmapFactory.decodeStream((InputStream) url.openStream());
-                evento[0].setImagem(aux);
-            } catch (MalformedURLException e){
-                e.printStackTrace();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return evento[0];
-        }
     }
 }
