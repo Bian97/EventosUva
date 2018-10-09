@@ -358,9 +358,7 @@ public class EventosCategoria extends AppCompatActivity{
                 for(int i = 0; i < eventos.size(); i++) {
                     Bitmap aux = null;
                     String nomeArquivo = eventos.get(i).getCaminho();
-                    Log.d("XAMPSON",eventos.get(i).getCaminho());
                     //nomeArquivo = "https://sicsu.net/uvapps/Imagens/"+nomeArquivo.substring(nomeArquivo.lastIndexOf("/") + 1);
-                    Log.d("XAMPSON", nomeArquivo);
                     URL url = new URL("http://sicsu.net/uvapps/pegaImagem.php?arquivo=" + nomeArquivo);
                     aux = BitmapFactory.decodeStream((InputStream) url.openStream());
 
