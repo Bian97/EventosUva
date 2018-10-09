@@ -39,13 +39,17 @@ public class EventosCategoria extends AppCompatActivity{
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
     private int pos;
-    Bitmap imagem;
     Eventos evento;
     ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, "Criado por Bian Medeiros e Victor Franklin", Toast.LENGTH_LONG).show();
+        iniciarTela();
+    }
+
+    public void iniciarTela(){
         if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             Log.e("XAMPSON", "Large screen");
             setContentView(R.layout.activity_grid_categoria);
@@ -62,22 +66,7 @@ public class EventosCategoria extends AppCompatActivity{
             Log.e("XAMPSON", "Nenhuma das screens");
             setContentView(R.layout.activity_grid_categoria);
         }
-        //setContentView(R.layout.activity_grid_categoria);
-
-        Toast.makeText(this, "Criado por Bian Medeiros e Victor Franklin", Toast.LENGTH_LONG).show();
-        try {
-            String chamadaWs;
-            Calendar hoje = Calendar.getInstance();
-            int m = hoje.get(Calendar.MONTH) +1;
-            int a = hoje.get(Calendar.YEAR);
-
-            chamadaWs = "http://profsicsu.com.br/prototipos/eventosUva/wsListData.php?mes="+m+"&ano="+a;
-            System.out.println("CHAMADAWS: "+chamadaWs);
-
-           iniciarDownload(chamadaWs, "GET");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        iniciarChamada();
     }
 
     public void proximaActivity(int position){
@@ -201,7 +190,7 @@ public class EventosCategoria extends AppCompatActivity{
 
 
     private void listEventos(String resposta) {
-         evento = null;
+        evento = null;
         //EventosCategoria evt = new EventosCategoria();
         try {
             String json = null;
@@ -229,8 +218,8 @@ public class EventosCategoria extends AppCompatActivity{
             }
             progressDialog.dismiss();
             //for(int i = 0; i < eventos.size(); i++){
-                PegaImagemCategoria pegaImagemCategoria = new PegaImagemCategoria();
-                pegaImagemCategoria.execute();
+            PegaImagemCategoria pegaImagemCategoria = new PegaImagemCategoria();
+            pegaImagemCategoria.execute();
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
@@ -256,7 +245,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
                 } else if (diaDaSemana(ev.getDia(), ev.getMes(), ev.getAno())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Próximos 7 dias", ev.getDescricao()));//categoria: Próximos 7 dias
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "PrÃ³ximos 7 dias", ev.getDescricao()));//categoria: PrÃ³ximos 7 dias
                     break;
                 }
             }
@@ -265,7 +254,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                     ev = null;
                 } else if (diaDoMes(ev.getDia(), ev.getMes())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Mês", ev.getDescricao()));//categoria: mes
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste MÃªs", ev.getDescricao()));//categoria: mes
                     break;
                 }
             }
@@ -280,18 +269,36 @@ public class EventosCategoria extends AppCompatActivity{
                 }
             }
             if (listaEventosCategoria == null) {
-                Toast.makeText(getApplicationContext(), "Não há eventos disponiveis", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "NÃ£o hÃ¡ eventos disponiveis", Toast.LENGTH_SHORT).show();
             }
 
         } catch (JSONException e) {
             eventos.clear();
             e.printStackTrace();
         } catch (Exception e){
-            System.out.println("Exceção: "+ e.getMessage());
+            System.out.println("ExceÃ§Ã£o: "+ e.getMessage());
         }
     }
 
+
+
     JSONTask jsonTask;
+
+    public void iniciarChamada(){
+        try {
+            String chamadaWs;
+            Calendar hoje = Calendar.getInstance();
+            int m = hoje.get(Calendar.MONTH) +1;
+            int a = hoje.get(Calendar.YEAR);
+
+            chamadaWs = "http://sicsu.net/uvapps/wsListData.php?mes="+m+"&ano="+a;
+            System.out.println("CHAMADAWS: "+chamadaWs);
+
+            iniciarDownload(chamadaWs, "GET");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void exibirProgress(boolean exibir) {
         if (exibir) {
@@ -351,9 +358,10 @@ public class EventosCategoria extends AppCompatActivity{
                 for(int i = 0; i < eventos.size(); i++) {
                     Bitmap aux = null;
                     String nomeArquivo = eventos.get(i).getCaminho();
-                    nomeArquivo = nomeArquivo.substring(nomeArquivo.lastIndexOf("/") + 1);
+                    Log.d("XAMPSON",eventos.get(i).getCaminho());
+                    //nomeArquivo = "https://sicsu.net/uvapps/Imagens/"+nomeArquivo.substring(nomeArquivo.lastIndexOf("/") + 1);
                     Log.d("XAMPSON", nomeArquivo);
-                    URL url = new URL("http://profsicsu.com.br/prototipos/eventosUva/pegaImagem.php?arquivo=" + nomeArquivo);
+                    URL url = new URL("http://sicsu.net/uvapps/pegaImagem.php?arquivo=" + nomeArquivo);
                     aux = BitmapFactory.decodeStream((InputStream) url.openStream());
 
                     File direct = new File(Environment.getExternalStorageDirectory() + File.separator + "UVACategorias");
@@ -401,7 +409,7 @@ public class EventosCategoria extends AppCompatActivity{
             super.onPostExecute(status);
             progressDialog.dismiss();
             if(status == null){
-                Toast.makeText(getApplicationContext(), "As imagems não foram baixadas completamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "As imagens não foram baixadas completamente", Toast.LENGTH_SHORT).show();
             }
         }
     }
