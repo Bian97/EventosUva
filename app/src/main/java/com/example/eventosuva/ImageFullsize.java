@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
@@ -23,9 +24,10 @@ import java.util.ArrayList;
 
 public class ImageFullsize extends AppCompatActivity {
     PhotoView imagem;
+    Eventos evento;
     ArrayList<Eventos> eventos = new ArrayList<>();
     int position;
-    Bitmap bitmap;
+    Bitmap aux;
     ProgressDialog progressDialog;
 
     @SuppressLint("StaticFieldLeak")
@@ -36,10 +38,11 @@ public class ImageFullsize extends AppCompatActivity {
         imagem = findViewById(R.id.imagemFull);
 
         eventos = getIntent().getParcelableArrayListExtra("evento");
-        position = getIntent().getIntExtra("position",0);
-        Eventos evento = eventos.get(position);
+        position = getIntent().getIntExtra("position", 0);
+        evento = eventos.get(position);
 
         Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
         imagem.setImageBitmap(aux);
     }
 }
+

@@ -230,7 +230,7 @@ public class EventosCategoria extends AppCompatActivity{
             if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                 ev = null;
             } else if (diaRecente(ev.getDia())) {
-                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Recem adicionados", ev.getDescricao()));
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(),  ev.getDescricao(),"Recem adicionados"));
                 break;
             }
         }
@@ -239,7 +239,7 @@ public class EventosCategoria extends AppCompatActivity{
             if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                 ev = null;
             } else if (diaDeHoje(ev.getDia(), ev.getMes(), ev.getAno())) {
-                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Hoje", ev.getDescricao()));//categoria: hoje
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(),  ev.getDescricao(),"Hoje"));//categoria: hoje
                 break;
             }
         }
@@ -249,7 +249,7 @@ public class EventosCategoria extends AppCompatActivity{
             if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                 ev = null;
             } else if (diaDaSemana(ev.getDia(), ev.getMes(), ev.getAno())) {
-                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "PrÃ³ximos 7 dias", ev.getDescricao()));//categoria: PrÃ³ximos 7 dias
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Próximos 7 dias"));//categoria: PrÃ³ximos 7 dias
                 break;
             }
         }
@@ -258,7 +258,7 @@ public class EventosCategoria extends AppCompatActivity{
             if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                 ev = null;
             } else if (diaDoMes(ev.getDia(), ev.getMes())) {
-                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste MÃªs", ev.getDescricao()));//categoria: mes
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Neste Mês"));//categoria: mes
                 break;
             }
         }
@@ -268,12 +268,12 @@ public class EventosCategoria extends AppCompatActivity{
             if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
                 ev = null;
             } else if (diaDoAno(ev.getMes(), ev.getAno())) {
-                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), "Neste Ano", ev.getDescricao()));//categoria: ano
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Neste Ano"));//categoria: ano
                 break;
             }
         }
         if (listaEventosCategoria == null) {
-            Toast.makeText(getApplicationContext(), "NÃ£o hÃ¡ eventos disponiveis", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Não há¡ eventos disponiveis", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -334,7 +334,7 @@ public class EventosCategoria extends AppCompatActivity{
                 listEventos(result);
             } else {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reabra o aplicativo!", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reabra o aplicativo!", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -352,12 +352,12 @@ public class EventosCategoria extends AppCompatActivity{
             try {
                 for(int i = 0; i < eventos.size(); i++) {
                     //Bitmap aux = null;
-                    String nomeArquivo = eventos.get(i).getCaminho();
-                    nomeArquivo = "https://sicsu.net/uvapps/Imagens/"+nomeArquivo.substring(nomeArquivo.lastIndexOf("/") + 1);
+                    String nomeArquivo = "http://sicsu.net/uvapps/Imagens/"+eventos.get(i).getCaminho();
+                    eventos.get(i).setCaminho(nomeArquivo);
 
-                    /*URL url = new URL("http://sicsu.net/uvapps/pegaImagem.php?arquivo=" + nomeArquivo);
-                    aux = BitmapFactory.decodeStream((InputStream) url.openStream());
-                    File direct = new File(Environment.getExternalStorageDirectory() + File.separator + "UVACategorias");
+                    //URL url = new URL("http://sicsu.net/uvapps/pegaImagem.php?arquivo=" + nomeArquivo);
+                    //aux = BitmapFactory.decodeStream((InputStream) url.openStream());
+                    /*File direct = new File(Environment.getExternalStorageDirectory() + File.separator + "UVACategorias");
 
                     if(!direct.exists()){
                         File diretorioImagem = new File(Environment.getExternalStorageDirectory() + File.separator + "/UVACategorias/");
@@ -380,7 +380,7 @@ public class EventosCategoria extends AppCompatActivity{
                         out.flush();
                         out.close();
                     }*/
-                    eventos.get(i).setCaminho(nomeArquivo);
+                    //eventos.get(i).setCaminho(nomeArquivo);
 
                     if(eventos.get(i).getCaminho() != null){
                         status = "cheio";

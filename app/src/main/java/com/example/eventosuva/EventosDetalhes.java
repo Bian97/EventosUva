@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
+import com.loopj.android.image.SmartImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class EventosDetalhes extends AppCompatActivity {
-    ImageView imagem;
+    SmartImageView imagem;
     TextView text,data;
     ArrayList<Eventos> eventos = new ArrayList<>();
     int position;
@@ -45,19 +46,18 @@ public class EventosDetalhes extends AppCompatActivity {
         position = getIntent().getIntExtra("position",0);
         Eventos evento = eventos.get(position);
 
-        Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        imagem.setImageBitmap(aux);
+        imagem.setImageUrl(evento.getCaminho());
         text.setText(evento.getNome());
         String dataS = evento.getDia()+"/"+evento.getMes()+"/"+evento.getAno();
         data.setText("Data do Evento: " + dataS + "\nDescrição do Evento: " + evento.getDescricao());
 
-        //imagem.setImageUrl(evento.getCaminho());
+
 
     }
 
     public void onImagemDetalhesClick(View view) {
         Intent intent = new Intent(EventosDetalhes.this,ImageFullsize.class);
-        intent.putExtra("position",position);
+/*
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();
         Log.d("XAMPSONBITMAP", String.valueOf(bitmap));
@@ -65,8 +65,9 @@ public class EventosDetalhes extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] imageInByte = baos.toByteArray();
-
         intent.putExtra("bitmap", imageInByte);
+*/
+        intent.putExtra("position",position);
         intent.putParcelableArrayListExtra("evento",eventos);
         startActivity(intent);
     }
