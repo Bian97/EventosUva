@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.loopj.android.image.SmartImageView;
+
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,12 +25,9 @@ import java.util.ArrayList;
  */
 
 public class ImageFullsize extends AppCompatActivity {
-    PhotoView imagem;
-    Eventos evento;
+    SmartImageView imagem;
     ArrayList<Eventos> eventos = new ArrayList<>();
     int position;
-    Bitmap aux;
-    ProgressDialog progressDialog;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -39,10 +38,10 @@ public class ImageFullsize extends AppCompatActivity {
 
         eventos = getIntent().getParcelableArrayListExtra("evento");
         position = getIntent().getIntExtra("position", 0);
-        evento = eventos.get(position);
 
-        Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        imagem.setImageBitmap(aux);
+        Eventos evento = eventos.get(position);
+        //Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
+        imagem.setImageUrl(evento.getCaminho());
     }
 }
 
