@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
-import com.loopj.android.image.SmartImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -31,7 +30,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EventosDetalhes extends AppCompatActivity {
-    SmartImageView imagem;
+    ImageView imagem;
     TextView text,data;
     ArrayList<Eventos> eventos = new ArrayList<>();
     int position;
@@ -52,15 +51,10 @@ public class EventosDetalhes extends AppCompatActivity {
         position = getIntent().getIntExtra("position",0);
         Eventos evento = eventos.get(position);
 
-<<<<<<< HEAD
         Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
-=======
-        imagem.setImageUrl(evento.getCaminho());
->>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
         text.setText(evento.getNome());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-<<<<<<< HEAD
         String strDate = dateFormat.format(evento.getDataEvento());
         data.setText("Data do Evento: " + convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
     }
@@ -84,9 +78,6 @@ public class EventosDetalhes extends AppCompatActivity {
     }
 
     private String stringToSpace(String string){
-=======
-
->>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
 
         int spaceIndex = string.indexOf(" ");
         if(spaceIndex > 0) {
@@ -97,22 +88,15 @@ public class EventosDetalhes extends AppCompatActivity {
 
     public void onImagemDetalhesClick(View view) {
         Intent intent = new Intent(EventosDetalhes.this,ImageFullsize.class);
-/*
+        intent.putExtra("position",position);
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();
 
         /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-<<<<<<< HEAD
         byte[] imageInByte = baos.toByteArray();*/
 
         //intent.putExtra("bitmap", imageInByte);
-=======
-        byte[] imageInByte = baos.toByteArray();
-        intent.putExtra("bitmap", imageInByte);
-*/
-        intent.putExtra("position",position);
->>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
         intent.putParcelableArrayListExtra("evento",eventos);
         startActivity(intent);
     }
