@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -39,7 +40,7 @@ public class ImageFullsize extends AppCompatActivity {
         position = getIntent().getIntExtra("position",0);
         Eventos evento = eventos.get(position);
 
-        Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        imagem.setImageBitmap(aux);
+        //Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
+        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
     }
 }

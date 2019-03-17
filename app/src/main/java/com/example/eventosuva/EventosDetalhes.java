@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 
@@ -21,7 +22,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class EventosDetalhes extends AppCompatActivity {
     ImageView imagem;
@@ -45,14 +51,39 @@ public class EventosDetalhes extends AppCompatActivity {
         position = getIntent().getIntExtra("position",0);
         Eventos evento = eventos.get(position);
 
-        Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        imagem.setImageBitmap(aux);
+        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
         text.setText(evento.getNome());
-        String dataS = evento.getDia()+"/"+evento.getMes()+"/"+evento.getAno();
-        data.setText("Data do Evento: " + dataS + "\nDescrição do Evento: " + evento.getDescricao());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        //imagem.setImageUrl(evento.getCaminho());
+        String strDate = dateFormat.format(evento.getDataEvento());
+        data.setText("Data do Evento: " + convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
+    }
 
+    public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
+        // formato de entrada deve ser 2017-01-17
+        SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        // sem argumentos, pega o formato do sistema para exibir a data
+        SimpleDateFormat dateFormatOut = new SimpleDateFormat();
+        // com argumentos formato e locale a saida e sempre a mesma
+        //  SimpleDateFormat dateFormatOut = new SimpleDateFormat("dd-MM-yy", Locale.US);
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormatIn.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
+    }
+
+    private String stringToSpace(String string){
+
+        int spaceIndex = string.indexOf(" ");
+        if(spaceIndex > 0) {
+            string = string.substring(0, spaceIndex);
+        }
+        return string;
     }
 
     public void onImagemDetalhesClick(View view) {
@@ -60,13 +91,12 @@ public class EventosDetalhes extends AppCompatActivity {
         intent.putExtra("position",position);
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();
-        Log.d("XAMPSONBITMAP", String.valueOf(bitmap));
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] imageInByte = baos.toByteArray();
+        byte[] imageInByte = baos.toByteArray();*/
 
-        intent.putExtra("bitmap", imageInByte);
+        //intent.putExtra("bitmap", imageInByte);
         intent.putParcelableArrayListExtra("evento",eventos);
         startActivity(intent);
     }

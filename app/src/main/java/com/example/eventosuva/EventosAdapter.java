@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 
@@ -58,8 +59,7 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
             }
             Eventos evento = listaEventosAdapter.get(position);
             holder.nome.setText(evento.getNome());
-            Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-            holder.imagem.setImageBitmap(aux);
+            Glide.with(getContext()).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(holder.imagem);
             return row;
     }
     static class ViewHolder {

@@ -5,26 +5,34 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 /**
- * Created by Victor on 26/11/2017.
+ * Created by Bian on 26/11/2017.
  */
 
 public class Eventos implements Parcelable {
-    //private String nome,imagem, dia, mes, ano;
     private int codigo;
     private String caminho, nome;
-    private int dia , mes, ano;
     private String categoria, descricao;
+    private Date dataEvento, dataPostado;
 
-    public Eventos(int codigo, String caminho, String nome, int dia, int mes, int ano, String descricao, String categoria) {
+    public Date getDataEvento() {
+        return dataEvento;
+    }
+
+    public void setDataEvento(Date dataEvento) {
+        this.dataEvento = dataEvento;
+    }
+
+    public Eventos(int codigo, String caminho, String nome, String descricao, String categoria, Date dataEvento, Date dataPostado) {
         this.codigo = codigo;
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
         this.caminho = caminho;
         this.nome = nome;
         this.categoria = categoria;
         this.descricao = descricao;
+        this.dataEvento = dataEvento;
+        this.dataPostado = dataPostado;
     }
 
     public int getCodigo() {
@@ -33,30 +41,6 @@ public class Eventos implements Parcelable {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-
-    public int getDia() {
-        return dia;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public int getMes() {
-        return mes;
-    }
-
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
     }
 
     public String getCaminho() {
@@ -91,15 +75,22 @@ public class Eventos implements Parcelable {
         this.descricao = descricao;
     }
 
+    public Date getDataPostado() {
+        return dataPostado;
+    }
+
+    public void setDataPostado(Date dataPostado) {
+        this.dataPostado = dataPostado;
+    }
+
     protected Eventos(Parcel in) {
         codigo = in.readInt();
         caminho = in.readString();
         nome = in.readString();
-        dia = in.readInt();
-        mes = in.readInt();
-        ano = in.readInt();
         descricao = in.readString();
         categoria = in.readString();
+        dataEvento = (java.util.Date) in.readSerializable();
+        dataPostado = (java.util.Date) in.readSerializable();
     }
 
     @Override
@@ -107,11 +98,10 @@ public class Eventos implements Parcelable {
         dest.writeInt(codigo);
         dest.writeString(caminho);
         dest.writeString(nome);
-        dest.writeInt(dia);
-        dest.writeInt(mes);
-        dest.writeInt(ano);
         dest.writeString(descricao);
         dest.writeString(categoria);
+        dest.writeSerializable(dataEvento);
+        dest.writeSerializable(dataPostado);
     }
 
     @Override
