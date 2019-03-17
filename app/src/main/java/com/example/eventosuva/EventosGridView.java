@@ -58,6 +58,7 @@ public class EventosGridView extends AppCompatActivity {
                 });
     }
 
+    //Victor irá consertar essa gambiarra 1 dia, mas esse dia não é hj
     public void inicializarEventos(){
             int escolha = pos;
             if(escolha == 0){

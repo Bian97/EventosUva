@@ -15,7 +15,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
+import com.loopj.android.image.SmartImageView;
 
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -25,7 +29,7 @@ import java.util.ArrayList;
 
 public class EventosAdapter extends ArrayAdapter<Eventos> {
 
-    private ArrayList<Eventos> listaEventosAdapter = new ArrayList<>();
+    private ArrayList<Eventos> listaEventosAdapter;
     private Context context;
     private int layoutResourceId;
 
@@ -45,7 +49,7 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             View row = convertView;
-            ViewHolder holder = null;
+            ViewHolder holder;
             if(row == null) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(layoutResourceId, parent, false);
@@ -59,11 +63,15 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
             }
             Eventos evento = listaEventosAdapter.get(position);
             holder.nome.setText(evento.getNome());
+<<<<<<< HEAD
             Glide.with(getContext()).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(holder.imagem);
+=======
+            holder.imagem.setImageUrl(evento.getCaminho());
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
             return row;
     }
     static class ViewHolder {
         TextView nome;
-        ImageView imagem;
+        SmartImageView imagem;
     }
 }

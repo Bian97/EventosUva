@@ -19,8 +19,16 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+=======
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,8 +41,7 @@ import java.util.Locale;
 public class EventosCategoria extends AppCompatActivity{
 
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
-    private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
-    private int pos;
+    private ArrayList<Eventos> eventos = new ArrayList<>();
     Eventos evento;
     ProgressDialog progressDialog;
 
@@ -63,8 +70,7 @@ public class EventosCategoria extends AppCompatActivity{
 
     public void proximaActivity(int position){
         Intent intent = new Intent(EventosCategoria.this, EventosGridView.class);
-        pos = position;
-        intent.putExtra("pos",pos);
+        intent.putExtra("pos",position);
         intent.putParcelableArrayListExtra("auxiliar",eventos);
         startActivity(intent);
     }
@@ -196,18 +202,20 @@ public class EventosCategoria extends AppCompatActivity{
     private void listEventos(String resposta) {
         evento = null;
         try {
-            String json = null;
-
+            String json;
             json = resposta;
 
             JSONArray jA = new JSONArray(json);
             for (int i = 0; i < jA.length(); i++) {
+<<<<<<< HEAD
                 String dataEvento = jA.getJSONObject(i).getString("dataevento");
                 String dataPostado = jA.getJSONObject(i).getString("datapostado");
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date data1 = dateFormat.parse(dataEvento);
                 Date data2 = dateFormat.parse(dataPostado);
+=======
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
                 evento = new Eventos(jA.getJSONObject(i).getInt("codigo"),
                         jA.getJSONObject(i).getString("caminho"),
                         jA.getJSONObject(i).getString("nome"),
@@ -220,6 +228,7 @@ public class EventosCategoria extends AppCompatActivity{
                 }
             }
             progressDialog.dismiss();
+<<<<<<< HEAD
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
@@ -236,8 +245,42 @@ public class EventosCategoria extends AppCompatActivity{
                 } else if (diaDeHoje(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Hoje", ev.getDataEvento(), ev.getDataPostado()));//categoria: hoje
                 }
-            }
+=======
+            //for(int i = 0; i < eventos.size(); i++){
+            PegaImagemCategoria pegaImagemCategoria = new PegaImagemCategoria();
+            pegaImagemCategoria.execute();
+            listEventosCategorias();
+        } catch (JSONException e) {
+            eventos.clear();
+            e.printStackTrace();
+        } catch (Exception e){
+            System.out.println("ExceÃ§Ã£o: "+ e.getMessage());
+        }
+    }
 
+    //Victor irá consertar essa gambiarra 1 dia, mas esse dia não é hj
+    private void listEventosCategorias() {
+        for (int j = 0; j < eventos.size(); j++) {
+            Eventos ev = eventos.get(j);
+            if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
+                ev = null;
+            } else if (diaRecente(ev.getDia())) {
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(),  ev.getDescricao(),"Recem adicionados"));
+                break;
+            }
+        }
+        for (int j = 0; j < eventos.size(); j++) {
+            Eventos ev = eventos.get(j);
+            if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
+                ev = null;
+            } else if (diaDeHoje(ev.getDia(), ev.getMes(), ev.getAno())) {
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(),  ev.getDescricao(),"Hoje"));//categoria: hoje
+                break;
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
+            }
+        }
+
+<<<<<<< HEAD
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
                 if (diaAnterior(ev.getDataEvento())) {
@@ -253,8 +296,28 @@ public class EventosCategoria extends AppCompatActivity{
                 } else if (diaDoMes(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Mês", ev.getDataEvento(), ev.getDataPostado()));//categoria: mes
                 }
+=======
+        for (int j = 0; j < eventos.size(); j++) {
+            Eventos ev = eventos.get(j);
+            if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
+                ev = null;
+            } else if (diaDaSemana(ev.getDia(), ev.getMes(), ev.getAno())) {
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Próximos 7 dias"));//categoria: PrÃ³ximos 7 dias
+                break;
             }
+        }
+        for (int j = 0; j < eventos.size(); j++) {
+            Eventos ev = eventos.get(j);
+            if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
+                ev = null;
+            } else if (diaDoMes(ev.getDia(), ev.getMes())) {
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Neste Mês"));//categoria: mes
+                break;
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
+            }
+        }
 
+<<<<<<< HEAD
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
                 if (diaAnterior(ev.getDataEvento())) {
@@ -272,10 +335,21 @@ public class EventosCategoria extends AppCompatActivity{
             e.printStackTrace();
         } catch (Exception e){
             System.out.println("Exceção: "+ e.getMessage());
+=======
+        for (int j = 0; j < eventos.size(); j++) {
+            Eventos ev = eventos.get(j);
+            if (diaAnterior(ev.getDia(), ev.getMes(), ev.getAno())) {
+                ev = null;
+            } else if (diaDoAno(ev.getMes(), ev.getAno())) {
+                listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDia(), ev.getMes(), ev.getAno(), ev.getDescricao(), "Neste Ano"));//categoria: ano
+                break;
+            }
+        }
+        if (listaEventosCategoria == null) {
+            Toast.makeText(getApplicationContext(), "Não há¡ eventos disponiveis", Toast.LENGTH_SHORT).show();
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
         }
     }
-
-
 
     JSONTask jsonTask;
 
@@ -304,7 +378,6 @@ public class EventosCategoria extends AppCompatActivity{
         }
     }
 
-
     public class JSONTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
@@ -331,7 +404,79 @@ public class EventosCategoria extends AppCompatActivity{
                 listEventos(result);
             } else {
                 progressDialog.dismiss();
+<<<<<<< HEAD
                 Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reinicie o aplicativo!", Toast.LENGTH_LONG);
+=======
+                Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reabra o aplicativo!", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public class PegaImagemCategoria extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(EventosCategoria.this, "Aguarde um pouco.", "Baixando Imagens...", false, false);
+        }
+        //decidir se vai armazenar no celular
+        @Override
+        protected String doInBackground(String... evento) {
+            String status = null;
+            try {
+                for(int i = 0; i < eventos.size(); i++) {
+                    //Bitmap aux = null;
+                    String nomeArquivo = "http://sicsu.net/uvapps/Imagens/"+eventos.get(i).getCaminho();
+                    eventos.get(i).setCaminho(nomeArquivo);
+
+                    //URL url = new URL("http://sicsu.net/uvapps/pegaImagem.php?arquivo=" + nomeArquivo);
+                    //aux = BitmapFactory.decodeStream((InputStream) url.openStream());
+                    /*File direct = new File(Environment.getExternalStorageDirectory() + File.separator + "UVACategorias");
+
+                    if(!direct.exists()){
+                        File diretorioImagem = new File(Environment.getExternalStorageDirectory() + File.separator + "/UVACategorias/");
+                        diretorioImagem.mkdirs();
+                    }
+                    File file = new File(new File(Environment.getExternalStorageDirectory() + File.separator +"/UVACategorias/"), nomeArquivo);
+                    if(file.exists()){
+                        file.delete();
+                    }
+
+                    FileOutputStream out = new FileOutputStream(file);
+                    String extensaoArquivo = nomeArquivo.substring(nomeArquivo.lastIndexOf(".")+1);
+                    Log.d("XAMPSON", extensaoArquivo);
+                    if(extensaoArquivo.equalsIgnoreCase("jpg") || extensaoArquivo.equalsIgnoreCase("jpeg")) {
+                        aux.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        out.flush();
+                        out.close();
+                    } else if(extensaoArquivo.equalsIgnoreCase("png")){
+                        aux.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        out.flush();
+                        out.close();
+                    }*/
+                    //eventos.get(i).setCaminho(nomeArquivo);
+
+                    if(eventos.get(i).getCaminho() != null){
+                        status = "cheio";
+                    } else {
+                        status = null;
+                    }
+                }
+            /*} catch (MalformedURLException e) {
+                e.printStackTrace();
+                status = null;*/
+            } catch (Exception e) {
+                e.printStackTrace();
+                status = null;
+            }
+            return status;
+        }
+        @Override
+        protected void onPostExecute(String status){
+            super.onPostExecute(status);
+            progressDialog.dismiss();
+            if(status == null){
+                Toast.makeText(getApplicationContext(), "As imagens não foram baixadas completamente", Toast.LENGTH_SHORT).show();
+>>>>>>> d7206bf044c93c2737d8768d5f61148c7cd9dd3e
             }
         }
     }

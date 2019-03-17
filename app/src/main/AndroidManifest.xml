@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.eventosuva.ImageFullsize"> </activity>
+        <activity android:name="com.example.eventosuva.ImageFullsize" android:screenOrientation="landscape"></activity>
         <activity android:name="com.example.eventosuva.EventosGridView"> </activity>
         <activity android:name="com.example.eventosuva.EventosDetalhes"> </activity>
     </application>
