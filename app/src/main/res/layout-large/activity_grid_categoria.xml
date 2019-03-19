@@ -29,7 +29,7 @@
             android:layout_height="90dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="ADICIONADOS RECENTES"
+            android:text="@string/events_new"
             android:textColor="#ffffff"
             android:textSize="23sp"
             android:textStyle="bold"/>
@@ -60,7 +60,7 @@
             android:layout_height="90dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS DE HOJE"
+            android:text="@string/events_today"
             android:textColor="#ffffff"
             android:textSize="23sp"
             android:textStyle="bold"/>
@@ -88,7 +88,7 @@
             android:layout_height="90dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="PRÓXIMOS 7 DIAS"
+            android:text="@string/events_seven"
             android:textColor="#ffffff"
             android:textSize="23sp"
             android:textStyle="bold"/>
@@ -116,7 +116,7 @@
             android:layout_height="90dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS ESTE MÊS"
+            android:text="@string/events_month"
             android:textColor="#ffffff"
             android:textSize="23sp"
             android:textStyle="bold"/>
@@ -148,7 +148,7 @@
             android:layout_height="90dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS ESTE ANO"
+            android:text="@string/events_year"
             android:textColor="#ffffff"
             android:textSize="23sp"
             android:textStyle="bold"/>

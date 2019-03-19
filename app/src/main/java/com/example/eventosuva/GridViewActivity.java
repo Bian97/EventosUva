@@ -3,32 +3,27 @@ package com.example.eventosuva;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.adapter.EventosAdapter;
 import com.example.eventosuva.modelo.Eventos;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
  * Created by Bian on 21/11/2017.
  */
 
-public class EventosGridView extends AppCompatActivity {
+public class GridViewActivity extends AppCompatActivity {
 
     GridView gridview;
-    EventosCategoria ec = new EventosCategoria();
+    CategoryActivity ec = new CategoryActivity();
     ArrayList<Eventos> listaEventosEscolha = new ArrayList<>();
     ArrayList<Eventos> listaAuxiliar = new ArrayList<>();
     int pos;
@@ -45,12 +40,12 @@ public class EventosGridView extends AppCompatActivity {
         listaAuxiliar = getIntent().getParcelableArrayListExtra("auxiliar");
         inicializarEventos();
 
-        gridview.setAdapter(new EventosAdapter(EventosGridView.this, R.layout.activity_grid_image, listaEventosEscolha));
+        gridview.setAdapter(new EventosAdapter(GridViewActivity.this, R.layout.activity_grid_image, listaEventosEscolha));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(EventosGridView.this, EventosDetalhes.class);
+                Intent intent = new Intent(GridViewActivity.this, DetailsActivity.class);
                 intent.putExtra("position",position);
                 intent.putParcelableArrayListExtra("evento",listaEventosEscolha);
                 startActivity(intent);
