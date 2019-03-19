@@ -29,14 +29,14 @@
             android:layout_height="45dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="ADICIONADOS RECENTES"
-            android:textColor="#ffffff"
+            android:text="@string/events_new"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:textStyle="bold"/>
         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf" />
+            android:background="@color/colorGray" />
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -60,14 +60,14 @@
             android:layout_height="45dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS DE HOJE"
-            android:textColor="#ffffff"
+            android:text="@string/events_today"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:textStyle="bold"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf"/>
+            android:background="@color/colorGray"/>
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -91,14 +91,14 @@
             android:layout_height="45dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="PRÓXIMOS 7 DIAS"
-            android:textColor="#ffffff"
+            android:text="@string/events_seven"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:textStyle="bold"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf" />
+            android:background="@color/colorGray" />
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -123,14 +123,14 @@
             android:layout_height="45dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS ESTE MÊS"
-            android:textColor="#ffffff"
+            android:text="@string/events_month"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:textStyle="bold" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf" />
+            android:background="@color/colorGray" />
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -155,14 +155,14 @@
             android:layout_height="45dp"
             android:layout_weight="2.4"
             android:gravity="center"
-            android:text="EVENTOS ESTE ANO"
-            android:textColor="#ffffff"
+            android:text="@string/events_year"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:textStyle="bold"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#62cfcfcf" />
+            android:background="@color/colorGray" />
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"

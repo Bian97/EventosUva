@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EventosUva</string>
+    <string name="name_text">NOME</string>
+    <string name="information_text">INFORMAÇÕES SOBRE O EVENTO</string>
+    <string name="events_new">ADICIONADOS RECENTES</string>
+    <string name="events_today">EVENTOS DE HOJE</string>
+    <string name="events_seven">PRÓXIMOS 7 DIAS</string>
+    <string name="events_month">EVENTOS ESTE MÊS</string>
+    <string name="events_year">EVENTOS ESTE ANO</string>
 </resources>

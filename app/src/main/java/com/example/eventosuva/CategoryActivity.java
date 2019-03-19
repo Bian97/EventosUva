@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,7 +30,7 @@ import java.util.Locale;
  * Created by Bian on 19/12/2017.
  */
 
-public class EventosCategoria extends AppCompatActivity{
+public class CategoryActivity extends AppCompatActivity{
 
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
@@ -62,7 +62,7 @@ public class EventosCategoria extends AppCompatActivity{
     }
 
     public void proximaActivity(int position){
-        Intent intent = new Intent(EventosCategoria.this, EventosGridView.class);
+        Intent intent = new Intent(CategoryActivity.this, GridViewActivity.class);
         pos = position;
         intent.putExtra("pos",pos);
         intent.putParcelableArrayListExtra("auxiliar",eventos);
@@ -310,7 +310,7 @@ public class EventosCategoria extends AppCompatActivity{
         protected void onPreExecute() {
             super.onPreExecute();
             exibirProgress(true);
-            progressDialog = ProgressDialog.show(EventosCategoria.this,"Aguarde um pouco.", "Carregando informações...", false, false);
+            progressDialog = ProgressDialog.show(CategoryActivity.this,"Aguarde um pouco.", "Carregando informações...", false, false);
         }
 
         @Override

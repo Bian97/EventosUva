@@ -4,12 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,10 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
 import com.example.eventosuva.modelo.Eventos;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class EventosDetalhes extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity {
     ImageView imagem;
     TextView text,data;
     ArrayList<Eventos> eventos = new ArrayList<>();
@@ -87,7 +80,7 @@ public class EventosDetalhes extends AppCompatActivity {
     }
 
     public void onImagemDetalhesClick(View view) {
-        Intent intent = new Intent(EventosDetalhes.this,ImageFullsize.class);
+        Intent intent = new Intent(DetailsActivity.this, ImageFullsizeActivity.class);
         intent.putExtra("position",position);
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();

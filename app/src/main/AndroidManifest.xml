@@ -47,16 +47,16 @@
         android:supportsRtl="true"
         android:logo="@drawable/uva"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.eventosuva.EventosCategoria">
+        <activity android:name="com.example.eventosuva.CategoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.eventosuva.ImageFullsize" android:screenOrientation="landscape"></activity>
-        <activity android:name="com.example.eventosuva.EventosGridView"> </activity>
-        <activity android:name="com.example.eventosuva.EventosDetalhes"> </activity>
+        <activity android:name="com.example.eventosuva.ImageFullsizeActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.eventosuva.GridViewActivity"> </activity>
+        <activity android:name="com.example.eventosuva.DetailsActivity"> </activity>
     </application>
 
 </manifest>
