@@ -11,8 +11,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.View.MenuActivity;
 import com.example.eventosuva.adapter.EventosAdapter;
-import com.example.eventosuva.modelo.Eventos;
+import com.example.eventosuva.Model.Eventos;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class GridViewActivity extends AppCompatActivity {
 
     GridView gridview;
-    CategoryActivity ec = new CategoryActivity();
+    MenuActivity ec = new MenuActivity();
     ArrayList<Eventos> listaEventosEscolha = new ArrayList<>();
     ArrayList<Eventos> listaAuxiliar = new ArrayList<>();
     int pos;

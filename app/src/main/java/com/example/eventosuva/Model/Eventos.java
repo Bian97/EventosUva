@@ -1,7 +1,6 @@
-package com.example.eventosuva.modelo;
+package com.example.eventosuva.Model;
 
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 

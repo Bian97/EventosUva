@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.drgreend.eventosuva.R;
-import com.example.eventosuva.modelo.Eventos;
+import com.example.eventosuva.Model.Eventos;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;

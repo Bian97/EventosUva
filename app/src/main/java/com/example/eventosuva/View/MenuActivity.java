@@ -1,4 +1,4 @@
-package com.example.eventosuva;
+package com.example.eventosuva.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,8 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.GridViewActivity;
 import com.example.eventosuva.controle.EventosDAO;
-import com.example.eventosuva.modelo.Eventos;
+import com.example.eventosuva.Model.Eventos;
 
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -30,7 +31,7 @@ import java.util.Locale;
  * Created by Bian on 19/12/2017.
  */
 
-public class CategoryActivity extends AppCompatActivity{
+public class MenuActivity extends AppCompatActivity implements IMenuActivity{
 
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
@@ -62,7 +63,7 @@ public class CategoryActivity extends AppCompatActivity{
     }
 
     public void proximaActivity(int position){
-        Intent intent = new Intent(CategoryActivity.this, GridViewActivity.class);
+        Intent intent = new Intent(MenuActivity.this, GridViewActivity.class);
         pos = position;
         intent.putExtra("pos",pos);
         intent.putParcelableArrayListExtra("auxiliar",eventos);
@@ -310,7 +311,7 @@ public class CategoryActivity extends AppCompatActivity{
         protected void onPreExecute() {
             super.onPreExecute();
             exibirProgress(true);
-            progressDialog = ProgressDialog.show(CategoryActivity.this,"Aguarde um pouco.", "Carregando informações...", false, false);
+            progressDialog = ProgressDialog.show(MenuActivity.this,"Aguarde um pouco.", "Carregando informações...", false, false);
         }
 
         @Override

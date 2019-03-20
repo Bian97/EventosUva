@@ -47,7 +47,7 @@
         android:supportsRtl="true"
         android:logo="@drawable/uva"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.eventosuva.CategoryActivity">
+        <activity android:name="com.example.eventosuva.View.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
