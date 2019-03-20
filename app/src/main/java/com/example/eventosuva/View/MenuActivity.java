@@ -19,11 +19,9 @@ import com.example.eventosuva.Model.Eventos;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Bian on 19/12/2017.
@@ -41,20 +39,24 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, R.string.app_creators , Toast.LENGTH_LONG).show();
-        iniciarTela();
-        datePresenter = new DatePresenter();
+        this.setup();
         iniciarChamada();
     }
 
+    public void setup(){
+        datePresenter = new DatePresenter();
+        iniciarTela();
+        Toast.makeText(this, R.string.app_creators , Toast.LENGTH_LONG).show();
+    }
+
     public void iniciarTela(){
-        if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             setContentView(R.layout.activity_grid_categoria);
         }
-        else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
             setContentView(R.layout.activity_grid_categoria);
         }
-        else if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             setContentView(R.layout.activity_grid_categoria);
         }
         else {
@@ -90,30 +92,6 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
         proximaActivity(4);
     }
 
-    public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
-        // formato de entrada deve ser 2017-01-17
-        SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        // sem argumentos, pega o formato do sistema para exibir a data
-        SimpleDateFormat dateFormatOut = new SimpleDateFormat();
-        // com argumentos formato e locale a saida e sempre a mesma
-        //  SimpleDateFormat dateFormatOut = new SimpleDateFormat("dd-MM-yy", Locale.US);
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormatIn.parse(strDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
-    }
-
-    private String stringToSpace(String string){
-
-        int spaceIndex = string.indexOf(" ");
-        if(spaceIndex > 0) {
-            string = string.substring(0, spaceIndex);
-        }
-        return string;
-    }
 
     private void listEventos(String resposta) {
         evento = null;
@@ -196,8 +174,6 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
             System.out.println("Exceção: "+ e.getMessage());
         }
     }
-
-
 
     JSONTask jsonTask;
 

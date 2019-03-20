@@ -3,8 +3,11 @@ package com.example.eventosuva.Presenter;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DatePresenter implements IDatePresenter {
 
@@ -93,5 +96,30 @@ public class DatePresenter implements IDatePresenter {
         }else {
             return false;
         }
+    }
+
+    public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
+        // formato de entrada deve ser 2017-01-17
+        SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        // sem argumentos, pega o formato do sistema para exibir a data
+        SimpleDateFormat dateFormatOut = new SimpleDateFormat();
+        // com argumentos formato e locale a saida e sempre a mesma
+        //  SimpleDateFormat dateFormatOut = new SimpleDateFormat("dd-MM-yy", Locale.US);
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormatIn.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
+    }
+
+    private String stringToSpace(String string){
+
+        int spaceIndex = string.indexOf(" ");
+        if(spaceIndex > 0) {
+            string = string.substring(0, spaceIndex);
+        }
+        return string;
     }
 }

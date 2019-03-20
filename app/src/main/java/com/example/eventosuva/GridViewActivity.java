@@ -1,7 +1,6 @@
 package com.example.eventosuva;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,15 +26,12 @@ public class GridViewActivity extends AppCompatActivity {
     ArrayList<Eventos> listaEventosEscolha = new ArrayList<>();
     ArrayList<Eventos> listaAuxiliar = new ArrayList<>();
     int pos;
-    ProgressDialog progressDialog;
 
     @SuppressLint("StaticFieldLeak")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_view);
-        gridview = findViewById(R.id.gridview);
-        datePresenter = new DatePresenter();
+        this.setup();
 
         pos = getIntent().getIntExtra("pos",-1);
         listaAuxiliar = getIntent().getParcelableArrayListExtra("auxiliar");
@@ -52,6 +48,12 @@ public class GridViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setup(){
+        setContentView(R.layout.activity_grid_view);
+        gridview = findViewById(R.id.gridview);
+        datePresenter = new DatePresenter();
     }
 
     public void inicializarEventos(){

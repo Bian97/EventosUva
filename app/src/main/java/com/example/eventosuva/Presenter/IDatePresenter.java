@@ -10,5 +10,5 @@ public interface IDatePresenter {
     boolean isWeek(Date date);
     boolean isMonth(Date date);
     boolean isYear(Date date);
-
+    String convertDateToShow(String strDate);
 }
