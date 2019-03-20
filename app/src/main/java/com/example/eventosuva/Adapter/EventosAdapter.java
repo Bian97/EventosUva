@@ -1,4 +1,4 @@
-package com.example.eventosuva.adapter;
+package com.example.eventosuva.Adapter;
 
 import android.app.Activity;
 import android.content.Context;

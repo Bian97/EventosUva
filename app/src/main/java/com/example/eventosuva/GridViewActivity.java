@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.eventosuva.Presenter.DatePresenter;
-import com.example.eventosuva.adapter.EventosAdapter;
+import com.example.eventosuva.Adapter.EventosAdapter;
 import com.example.eventosuva.Model.Eventos;
 
 import java.util.ArrayList;
