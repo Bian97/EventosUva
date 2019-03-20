@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.R;
 import com.example.eventosuva.Model.Eventos;
 import com.github.chrisbanes.photoview.PhotoView;
 

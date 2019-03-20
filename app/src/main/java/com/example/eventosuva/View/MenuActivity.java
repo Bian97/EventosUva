@@ -10,20 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.R;
 import com.example.eventosuva.GridViewActivity;
-import com.example.eventosuva.controle.EventosDAO;
+import com.example.eventosuva.Presenter.DatePresenter;
+import com.example.eventosuva.Controle.EventosDAO;
 import com.example.eventosuva.Model.Eventos;
 
-import org.joda.time.Duration;
-import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -33,6 +31,7 @@ import java.util.Locale;
 
 public class MenuActivity extends AppCompatActivity implements IMenuActivity{
 
+    DatePresenter datePresenter;
     ArrayList<Eventos> listaEventosCategoria = new ArrayList<>();
     private ArrayList<Eventos> eventos = new ArrayList<Eventos>();
     private int pos;
@@ -42,8 +41,10 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, "Criado por Bian Medeiros e Victor Franklin", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.app_creators , Toast.LENGTH_LONG).show();
         iniciarTela();
+        datePresenter = new DatePresenter();
+        iniciarChamada();
     }
 
     public void iniciarTela(){
@@ -59,7 +60,6 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
         else {
             setContentView(R.layout.activity_grid_categoria);
         }
-        iniciarChamada();
     }
 
     public void proximaActivity(int position){
@@ -90,84 +90,6 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
         proximaActivity(4);
     }
 
-
-    public boolean diaDeHoje(Date data){
-        Calendar calHoje = Calendar.getInstance();
-        Date hoje = calHoje.getTime();
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(data);
-
-        if(localDateEvento.equals(localDateHoje)){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean adicRecente(Date dataPostado){
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        Duration dur = new Duration(dataPostado.getTime(), hoje1.getTime());
-        if((dur.getStandardDays() >= -1 && dur.getStandardDays() <= 1) || dur.getStandardDays() == 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean diaAnterior(Date data){
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        LocalDate localDateHoje = new LocalDate(hoje1);
-        LocalDate localDateEvento = new LocalDate(data);
-        if(localDateEvento.isBefore(localDateHoje)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public boolean diaDaSemana(Date data){
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        Duration dur = new Duration(hoje1.getTime(), data.getTime());
-
-        if(dur.getStandardDays() <= 6 && dur.getStandardDays() >= 0){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public boolean diaDoMes(Date data){
-        Calendar hoje = Calendar.getInstance();
-        Calendar dataEvento = Calendar.getInstance();
-        dataEvento.setTime(data);
-
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(dataEvento);
-
-        if(((localDateHoje.isBefore(localDateEvento) || localDateHoje.equals(localDateEvento))&& localDateEvento.getMonthOfYear() == localDateHoje.getMonthOfYear())){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public boolean diaDoAno(Date data){
-        Calendar hoje = Calendar.getInstance();
-        Calendar dataEvento = Calendar.getInstance();
-        dataEvento.setTime(data);
-
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(dataEvento);
-
-        if((localDateHoje.isBefore(localDateEvento) || localDateHoje.equals(localDateEvento)) && localDateEvento.getYear() == localDateHoje.getYear()){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
     public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
         // formato de entrada deve ser 2017-01-17
         SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -181,8 +103,6 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
     }
 
@@ -194,6 +114,7 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
         }
         return string;
     }
+
     private void listEventos(String resposta) {
         evento = null;
         try {
@@ -224,43 +145,43 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if (diaAnterior(ev.getDataEvento())) {
+                if (datePresenter.isYesterday(ev.getDataEvento())) {
                     ev = null;
-                } else if (adicRecente(ev.getDataPostado())){
+                } else if (datePresenter.isRecent(ev.getDataPostado())){
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Recem adicionados", ev.getDataEvento(), ev.getDataPostado()));
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if (diaAnterior(ev.getDataEvento())) {
+                if (datePresenter.isYesterday(ev.getDataEvento())) {
                     ev = null;
-                } else if (diaDeHoje(ev.getDataEvento())) {
+                } else if (datePresenter.isToday(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Hoje", ev.getDataEvento(), ev.getDataPostado()));//categoria: hoje
                 }
             }
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if (diaAnterior(ev.getDataEvento())) {
+                if (datePresenter.isYesterday(ev.getDataEvento())) {
                     ev = null;
-                } else if (diaDaSemana(ev.getDataEvento())) {
+                } else if (datePresenter.isWeek(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Próximos 7 dias", ev.getDataEvento(), ev.getDataPostado()));//categoria: PrÃƒÂ³ximos 7 dias
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if (diaAnterior(ev.getDataEvento())) {
+                if (datePresenter.isYesterday(ev.getDataEvento())) {
                     ev = null;
-                } else if (diaDoMes(ev.getDataEvento())) {
+                } else if (datePresenter.isMonth(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Mês", ev.getDataEvento(), ev.getDataPostado()));//categoria: mes
                 }
             }
 
             for (int j = 0; j < eventos.size(); j++) {
                 Eventos ev = eventos.get(j);
-                if (diaAnterior(ev.getDataEvento())) {
+                if (datePresenter.isYesterday(ev.getDataEvento())) {
                     ev = null;
-                } else if (diaDoAno(ev.getDataEvento())) {
+                } else if (datePresenter.isYear(ev.getDataEvento())) {
                     listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Ano", ev.getDataEvento(), ev.getDataPostado()));//categoria: ano
                 }
             }

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.drgreend.eventosuva.R;
+import com.example.eventosuva.R;
 import com.example.eventosuva.Model.Eventos;
 
 import java.text.DateFormat;

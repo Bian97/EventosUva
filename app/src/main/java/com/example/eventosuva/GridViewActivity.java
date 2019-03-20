@@ -10,8 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.example.drgreend.eventosuva.R;
-import com.example.eventosuva.View.MenuActivity;
+import com.example.eventosuva.Presenter.DatePresenter;
 import com.example.eventosuva.adapter.EventosAdapter;
 import com.example.eventosuva.Model.Eventos;
 
@@ -23,8 +22,8 @@ import java.util.ArrayList;
 
 public class GridViewActivity extends AppCompatActivity {
 
+    DatePresenter datePresenter;
     GridView gridview;
-    MenuActivity ec = new MenuActivity();
     ArrayList<Eventos> listaEventosEscolha = new ArrayList<>();
     ArrayList<Eventos> listaAuxiliar = new ArrayList<>();
     int pos;
@@ -36,6 +35,7 @@ public class GridViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
         gridview = findViewById(R.id.gridview);
+        datePresenter = new DatePresenter();
 
         pos = getIntent().getIntExtra("pos",-1);
         listaAuxiliar = getIntent().getParcelableArrayListExtra("auxiliar");
@@ -60,9 +60,9 @@ public class GridViewActivity extends AppCompatActivity {
             for(int i = 0; i < listaAuxiliar.size(); i++) {
                 Eventos evento;
                 evento = listaAuxiliar.get(i);
-                if(ec.diaAnterior(evento.getDataEvento())) {
+                if(datePresenter.isYesterday(evento.getDataEvento())) {
                     listaAuxiliar.remove(i);
-                } else if(ec.adicRecente(evento.getDataPostado())){
+                } else if(datePresenter.isRecent(evento.getDataPostado())){
                     listaEventosEscolha.add(evento);
                 }
             }
@@ -70,9 +70,9 @@ public class GridViewActivity extends AppCompatActivity {
         if(escolha == 1){
             for(int i = 0; i < listaAuxiliar.size(); i++) {
                 Eventos evento = listaAuxiliar.get(i);
-                if(ec.diaAnterior(evento.getDataEvento())){
+                if(datePresenter.isYesterday(evento.getDataEvento())){
                     listaAuxiliar.remove(i);
-                } else if(ec.diaDeHoje(evento.getDataEvento())){
+                } else if(datePresenter.isToday(evento.getDataEvento())){
                     listaEventosEscolha.add(evento);
                 }
             }
@@ -80,9 +80,9 @@ public class GridViewActivity extends AppCompatActivity {
         if(escolha == 2){
             for(int i = 0; i < listaAuxiliar.size(); i++) {
                 Eventos evento = listaAuxiliar.get(i);
-                if(ec.diaAnterior(evento.getDataEvento())){
+                if(datePresenter.isYesterday(evento.getDataEvento())){
                     listaAuxiliar.remove(i);
-                } else if(ec.diaDaSemana(evento.getDataEvento())){
+                } else if(datePresenter.isWeek(evento.getDataEvento())){
                     listaEventosEscolha.add(evento);
                 }
             }
@@ -90,9 +90,9 @@ public class GridViewActivity extends AppCompatActivity {
         if(escolha == 3){
             for(int i = 0; i < listaAuxiliar.size(); i++) {
                 Eventos evento = listaAuxiliar.get(i);
-                if((ec.diaAnterior(evento.getDataEvento()))){
+                if((datePresenter.isYesterday(evento.getDataEvento()))){
                     listaAuxiliar.remove(i);
-                } else if(ec.diaDoMes(evento.getDataEvento())){
+                } else if(datePresenter.isMonth(evento.getDataEvento())){
                     listaEventosEscolha.add(evento);
                 }
             }
@@ -100,9 +100,9 @@ public class GridViewActivity extends AppCompatActivity {
         if(escolha == 4){
             for(int i = 0; i < listaAuxiliar.size(); i++) {
                 Eventos evento = listaAuxiliar.get(i);
-                if(ec.diaAnterior(evento.getDataEvento())){
+                if(datePresenter.isYesterday(evento.getDataEvento())){
                     listaAuxiliar.remove(i);
-                } else if(ec.diaDoAno(evento.getDataEvento())){
+                } else if(datePresenter.isYear(evento.getDataEvento())){
                     listaEventosEscolha.add(evento);
                 }
             }
