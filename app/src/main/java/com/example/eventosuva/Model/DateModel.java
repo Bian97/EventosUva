@@ -1,4 +1,6 @@
-package com.example.eventosuva.Presenter;
+package com.example.eventosuva.Model;
+
+import android.util.Log;
 
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -9,9 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DatePresenter implements IDatePresenter {
+public class DateModel implements IDateModel {
 
-    public DatePresenter() {
+    public DateModel() {
     }
 
     @Override
@@ -96,6 +98,19 @@ public class DatePresenter implements IDatePresenter {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public Date convertStringToData(String string) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+        try{
+            date = dateFormat.parse(string);
+        }catch (ParseException e){
+            date = null;
+            System.out.println("Exceção: "+ e.getMessage());
+        }
+        return date;
     }
 
     public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
