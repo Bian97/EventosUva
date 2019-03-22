@@ -1,17 +1,22 @@
 package com.example.eventosuva;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
+
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.drgreend.eventosuva.R;
-import com.example.eventosuva.controle.EventosDAO;
+import com.example.eventosuva.Controle.EventosDAO;
 import com.example.eventosuva.modelo.Eventos;
 
 import org.joda.time.Duration;
@@ -19,12 +24,11 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Created by Bian on 19/12/2017.
@@ -45,6 +49,36 @@ public class EventosCategoria extends AppCompatActivity{
         iniciarTela();
     }
 
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int ExtstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int WExtstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int internet = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.INTERNET);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (internet != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.INTERNET);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
     public void iniciarTela(){
         if ((getResources().getConfiguration().screenLayout &      Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             setContentView(R.layout.activity_grid_categoria);
@@ -57,6 +91,16 @@ public class EventosCategoria extends AppCompatActivity{
         }
         else {
             setContentView(R.layout.activity_grid_categoria);
+        }
+        ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.INTERNET);
+        if(ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("XAMPSON", "COM PERMISSÃO");
+        } else {
+            Log.e("XAMPSON", "SEM PERMISSÃO");
+
+            checkAndRequestPermissions(EventosCategoria.this);
         }
         iniciarChamada();
     }
@@ -167,32 +211,6 @@ public class EventosCategoria extends AppCompatActivity{
         }
     }
 
-    public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
-        // formato de entrada deve ser 2017-01-17
-        SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        // sem argumentos, pega o formato do sistema para exibir a data
-        SimpleDateFormat dateFormatOut = new SimpleDateFormat();
-        // com argumentos formato e locale a saida e sempre a mesma
-        //  SimpleDateFormat dateFormatOut = new SimpleDateFormat("dd-MM-yy", Locale.US);
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormatIn.parse(strDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
-    }
-
-    private String stringToSpace(String string){
-
-        int spaceIndex = string.indexOf(" ");
-        if(spaceIndex > 0) {
-            string = string.substring(0, spaceIndex);
-        }
-        return string;
-    }
     private void listEventos(String resposta) {
         evento = null;
         try {
@@ -212,7 +230,8 @@ public class EventosCategoria extends AppCompatActivity{
                         jA.getJSONObject(i).getString("caminho"),
                         jA.getJSONObject(i).getString("nome"),
                         jA.getJSONObject(i).getString("descricao"),
-                        "Recem adicionados", data1, data2);
+                        "Recem adicionados", data1, data2, jA.getJSONObject(i).getString("curso"), jA.getJSONObject(i).getInt("campus"));
+                Log.e("XAMPSON", evento.getNome());
                 if (evento == null) {
                     eventos.clear();
                 } else {
@@ -226,7 +245,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDataEvento())) {
                     ev = null;
                 } else if (adicRecente(ev.getDataPostado())){
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Recem adicionados", ev.getDataEvento(), ev.getDataPostado()));
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Recem adicionados", ev.getDataEvento(), ev.getDataPostado(), ev.getCurso(), ev.getCampus()));
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
@@ -234,7 +253,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDataEvento())) {
                     ev = null;
                 } else if (diaDeHoje(ev.getDataEvento())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Hoje", ev.getDataEvento(), ev.getDataPostado()));//categoria: hoje
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Hoje", ev.getDataEvento(), ev.getDataPostado(), ev.getCurso(), ev.getCampus()));//categoria: hoje
                 }
             }
 
@@ -243,7 +262,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDataEvento())) {
                     ev = null;
                 } else if (diaDaSemana(ev.getDataEvento())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Próximos 7 dias", ev.getDataEvento(), ev.getDataPostado()));//categoria: PrÃƒÂ³ximos 7 dias
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Próximos 7 dias", ev.getDataEvento(), ev.getDataPostado(), ev.getCurso(), ev.getCampus()));
                 }
             }
             for (int j = 0; j < eventos.size(); j++) {
@@ -251,7 +270,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDataEvento())) {
                     ev = null;
                 } else if (diaDoMes(ev.getDataEvento())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Mês", ev.getDataEvento(), ev.getDataPostado()));//categoria: mes
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Mês", ev.getDataEvento(), ev.getDataPostado(), ev.getCurso(), ev.getCampus()));
                 }
             }
 
@@ -260,7 +279,7 @@ public class EventosCategoria extends AppCompatActivity{
                 if (diaAnterior(ev.getDataEvento())) {
                     ev = null;
                 } else if (diaDoAno(ev.getDataEvento())) {
-                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Ano", ev.getDataEvento(), ev.getDataPostado()));//categoria: ano
+                    listaEventosCategoria.add(new Eventos(ev.getCodigo(), ev.getCaminho(), ev.getNome(), ev.getDescricao(), "Neste Ano", ev.getDataEvento(), ev.getDataPostado(), ev.getCurso(), ev.getCampus()));
                 }
             }
             if (listaEventosCategoria == null) {
