@@ -1,24 +1,19 @@
-package com.example.eventosuva;
+package com.example.eventosuva.View.ImageActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.eventosuva.Model.Eventos;
+import com.example.eventosuva.R;
 import com.github.chrisbanes.photoview.PhotoView;
-
-import java.util.ArrayList;
 
 /**
  * Created by Victor on 01/12/2017.
  */
 
-public class ImageFullsizeActivity extends AppCompatActivity {
+public class ImageActivity extends AppCompatActivity {
     PhotoView imagem;
-    ArrayList<Eventos> eventos = new ArrayList<>();
-    int position;
-
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -26,12 +21,9 @@ public class ImageFullsizeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setup();
 
-        eventos = getIntent().getParcelableArrayListExtra("evento");
-        position = getIntent().getIntExtra("position",0);
-        Eventos evento = eventos.get(position);
-
+        String caminho = getIntent().getStringExtra("caminho");
         //Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
+        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+caminho).into(imagem);
     }
 
     public void setup(){

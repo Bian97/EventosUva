@@ -1,7 +1,5 @@
 package com.example.eventosuva.Model;
 
-import android.util.Log;
-
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 

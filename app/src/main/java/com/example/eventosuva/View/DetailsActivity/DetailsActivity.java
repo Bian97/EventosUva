@@ -1,4 +1,4 @@
-package com.example.eventosuva;
+package com.example.eventosuva.View.DetailsActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,19 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.eventosuva.View.ImageActivity.ImageActivity;
 import com.example.eventosuva.Model.DateModel;
 import com.example.eventosuva.Model.Eventos;
+import com.example.eventosuva.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class DetailsActivity extends AppCompatActivity {
     DateModel dateModel;
     ImageView imagem;
     TextView text,data;
-    ArrayList<Eventos> eventos = new ArrayList<>();
-    int position;
+    Eventos evento;
     Bitmap bitmap;
 
     @SuppressLint("StaticFieldLeak")
@@ -32,14 +32,11 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setup();
 
-        eventos = getIntent().getParcelableArrayListExtra("evento");
-        position = getIntent().getIntExtra("position",0);
-        Eventos evento = eventos.get(position);
+        evento = getIntent().getParcelableExtra("evento");
 
         Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
         text.setText(evento.getNome());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         String strDate = dateFormat.format(evento.getDataEvento());
         data.setText("Data do Evento: " + dateModel.convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
     }
@@ -53,8 +50,8 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     public void onImagemDetalhesClick(View view) {
-        Intent intent = new Intent(DetailsActivity.this, ImageFullsizeActivity.class);
-        intent.putExtra("position",position);
+        Intent intent = new Intent(DetailsActivity.this, ImageActivity.class);
+        intent.putExtra("caminho", evento.getCaminho());
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();
 
@@ -63,7 +60,6 @@ public class DetailsActivity extends AppCompatActivity {
         byte[] imageInByte = baos.toByteArray();*/
 
         //intent.putExtra("bitmap", imageInByte);
-        intent.putParcelableArrayListExtra("evento",eventos);
         startActivity(intent);
     }
 }

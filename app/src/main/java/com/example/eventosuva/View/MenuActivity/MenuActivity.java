@@ -1,4 +1,4 @@
-package com.example.eventosuva.View;
+package com.example.eventosuva.View.MenuActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,28 +9,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.eventosuva.Presenter.MenuPresenter;
+import com.example.eventosuva.Presenter.MenuPresenter.IMenuPresenter;
+import com.example.eventosuva.Presenter.MenuPresenter.MenuPresenter;
 import com.example.eventosuva.R;
-import com.example.eventosuva.GridViewActivity;
+import com.example.eventosuva.View.GridActivity.GridActivity;
 
 /**
  * Created by Bian on 19/12/2017.
  */
 
-public class MenuActivity extends AppCompatActivity implements IMenuActivity{
+public class MenuActivity extends AppCompatActivity implements IMenuActivity {
 
-    MenuPresenter menuPresenter;
+    IMenuPresenter iMenuPresenter;
     ProgressDialog progressDialog;
+    String json;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setup();
-        menuPresenter.onGetRequest();
+        iMenuPresenter.getRequest();
     }
 
     public void setup(){
-        menuPresenter = new MenuPresenter(this);
+        iMenuPresenter = new MenuPresenter(this);
         iniciarTela();
         Toast.makeText(this, R.string.app_creators , Toast.LENGTH_LONG).show();
     }
@@ -51,8 +53,9 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
     }
 
     public void proximaActivity(int position){
-        Intent intent = new Intent(MenuActivity.this, GridViewActivity.class);
-        intent.putExtra("pos",position);
+        Intent intent = new Intent(MenuActivity.this, GridActivity.class);
+        intent.putExtra("position",position);
+        intent.putExtra("json",json);
         startActivity(intent);
     }
 
@@ -82,13 +85,14 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity{
     }
 
     @Override
-    public void onLoadingFail() {
+    public void onLoadingFailure() {
         progressDialog.dismiss();
         Toast.makeText(getApplicationContext(), "Verifique sua conexão com a internet e reinicie o aplicativo!", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onLoadingFinish() {
+    public void onLoadingFinish(String json) {
+        this.json = json;
         progressDialog.dismiss();
         Toast.makeText(getApplicationContext(), "Eventos atualizados!", Toast.LENGTH_LONG).show();
     }
