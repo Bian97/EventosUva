@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.drgreend.eventosuva">
+    package="com.example.eventosuva">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -47,16 +47,16 @@
         android:supportsRtl="true"
         android:logo="@drawable/uva"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.eventosuva.CategoryActivity">
+        <activity android:name="com.example.eventosuva.View.MenuActivity.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.eventosuva.ImageFullsizeActivity" android:screenOrientation="landscape"></activity>
-        <activity android:name="com.example.eventosuva.GridViewActivity"> </activity>
-        <activity android:name="com.example.eventosuva.DetailsActivity"> </activity>
+        <activity android:name="com.example.eventosuva.View.ImageActivity.ImageActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.eventosuva.View.GridActivity.GridActivity"> </activity>
+        <activity android:name="com.example.eventosuva.View.DetailsActivity.DetailsActivity"> </activity>
     </application>
 
 </manifest>

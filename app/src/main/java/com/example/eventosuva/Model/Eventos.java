@@ -1,7 +1,6 @@
-package com.example.eventosuva.modelo;
+package com.example.eventosuva.Model;
 
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,14 +16,6 @@ public class Eventos implements Parcelable {
     private String categoria, descricao;
     private Date dataEvento, dataPostado;
 
-    public Date getDataEvento() {
-        return dataEvento;
-    }
-
-    public void setDataEvento(Date dataEvento) {
-        this.dataEvento = dataEvento;
-    }
-
     public Eventos(int codigo, String caminho, String nome, String descricao, String categoria, Date dataEvento, Date dataPostado) {
         this.codigo = codigo;
         this.caminho = caminho;
@@ -39,48 +30,28 @@ public class Eventos implements Parcelable {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
     public String getCaminho() {
         return caminho;
-    }
-
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCategoria() {
         return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public Date getDataEvento() {
+        return dataEvento;
     }
 
     public Date getDataPostado() {
         return dataPostado;
-    }
-
-    public void setDataPostado(Date dataPostado) {
-        this.dataPostado = dataPostado;
     }
 
     protected Eventos(Parcel in) {
