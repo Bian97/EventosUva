@@ -1,6 +1,7 @@
 package com.example.eventosuva.Presenter.GridPresenter;
 
-import com.example.eventosuva.Model.DateModel;
+import com.example.eventosuva.Helper.DateHandler;
+import com.example.eventosuva.Helper.IDateHandler;
 import com.example.eventosuva.Model.Eventos;
 import com.example.eventosuva.View.GridActivity.IGridActivity;
 
@@ -13,12 +14,12 @@ import java.util.Date;
 public class GridPresenter implements IGridPresenter {
 
     private IGridActivity iGridActivity;
-    private DateModel date;
+    private IDateHandler date;
     private ArrayList<Eventos> eventos = new ArrayList<>();
 
     public GridPresenter(IGridActivity iGridActivity) {
         this.iGridActivity = iGridActivity;
-        this.date = new DateModel();
+        this.date = new DateHandler();
     }
 
     @Override
@@ -59,14 +60,13 @@ public class GridPresenter implements IGridPresenter {
                     }
                 }
             }
-            if (eventos == null) {
-                iGridActivity.onCreateListFailure();
-            }
         } catch (JSONException e) {
             eventos.clear();
             e.printStackTrace();
             iGridActivity.onCreateListError(e.getMessage());
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
+            iGridActivity.onCreateListEmpty();
+        } catch (Exception e){
             iGridActivity.onCreateListError(e.getMessage());
         }
         return eventos;

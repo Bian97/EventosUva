@@ -60,7 +60,7 @@ public class GridActivity extends AppCompatActivity implements IGridActivity {
     }
 
     @Override
-    public void onCreateListFailure() {
+    public void onCreateListEmpty() {
         Toast.makeText(getApplicationContext(), "Não existem eventos para essa categoria", Toast.LENGTH_SHORT).show();
     }
 

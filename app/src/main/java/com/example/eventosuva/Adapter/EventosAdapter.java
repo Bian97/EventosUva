@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class EventosAdapter extends ArrayAdapter<Eventos> {
 
-    private ArrayList<Eventos> listaEventosAdapter = new ArrayList<>();
+    private ArrayList<Eventos> listaEventosAdapter;
     private Context context;
     private int layoutResourceId;
 
@@ -44,7 +44,7 @@ public class EventosAdapter extends ArrayAdapter<Eventos> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        ViewHolder holder = null;
+        ViewHolder holder;
         if(row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);

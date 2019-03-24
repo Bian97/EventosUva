@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.eventosuva.View.ImageActivity.ImageActivity;
-import com.example.eventosuva.Model.DateModel;
+import com.example.eventosuva.Helper.DateHandler;
 import com.example.eventosuva.Model.Eventos;
 import com.example.eventosuva.R;
 
@@ -20,7 +20,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class DetailsActivity extends AppCompatActivity {
-    DateModel dateModel;
+    DateHandler dateHandler;
     ImageView imagem;
     TextView text,data;
     Eventos evento;
@@ -38,7 +38,7 @@ public class DetailsActivity extends AppCompatActivity {
         text.setText(evento.getNome());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(evento.getDataEvento());
-        data.setText("Data do Evento: " + dateModel.convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
+        data.setText("Data do Evento: " + dateHandler.convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
     }
 
     public void setup(){
@@ -46,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
         imagem = findViewById(R.id.imagemDetalhe);
         text = findViewById(R.id.tituloDetalhe);
         data = findViewById(R.id.informacoesDetalhe);
-        dateModel = new DateModel();
+        dateHandler = new DateHandler();
     }
 
     public void onImagemDetalhesClick(View view) {

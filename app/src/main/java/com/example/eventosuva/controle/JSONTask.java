@@ -34,7 +34,6 @@ public class JSONTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String json) {
         if(json != null) {
-            // createEventList(result);
             presenter.finishedLoading(json);
         } else {
             presenter.failedLoading();

@@ -1,8 +1,8 @@
-package com.example.eventosuva.Model;
+package com.example.eventosuva.Helper;
 
 import java.util.Date;
 
-public interface IDateModel {
+public interface IDateHandler {
 
     boolean isRecent (Date date);
     boolean isToday(Date date);

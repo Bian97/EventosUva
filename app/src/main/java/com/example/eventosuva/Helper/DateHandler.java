@@ -1,4 +1,4 @@
-package com.example.eventosuva.Model;
+package com.example.eventosuva.Helper;
 
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -9,9 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateModel implements IDateModel {
+public class DateHandler implements IDateHandler {
 
-    public DateModel() {
+    public DateHandler() {
     }
 
     @Override
