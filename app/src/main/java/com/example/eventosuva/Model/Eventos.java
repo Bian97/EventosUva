@@ -11,12 +11,12 @@ import java.util.Date;
  */
 
 public class Eventos implements Parcelable {
-    private int codigo;
+    private int codigo, campus;
     private String caminho, nome;
-    private String categoria, descricao;
+    private String categoria, descricao, curso;
     private Date dataEvento, dataPostado;
 
-    public Eventos(int codigo, String caminho, String nome, String descricao, String categoria, Date dataEvento, Date dataPostado) {
+    public Eventos(int codigo, String caminho, String nome, String descricao, String categoria, Date dataEvento, Date dataPostado, String curso, int campus) {
         this.codigo = codigo;
         this.caminho = caminho;
         this.nome = nome;
@@ -24,6 +24,8 @@ public class Eventos implements Parcelable {
         this.descricao = descricao;
         this.dataEvento = dataEvento;
         this.dataPostado = dataPostado;
+        this.curso = curso;
+        this.campus = campus;
     }
 
     public int getCodigo() {
@@ -54,6 +56,14 @@ public class Eventos implements Parcelable {
         return dataPostado;
     }
 
+    public int getCampus() {
+        return campus;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
     protected Eventos(Parcel in) {
         codigo = in.readInt();
         caminho = in.readString();
@@ -62,6 +72,8 @@ public class Eventos implements Parcelable {
         categoria = in.readString();
         dataEvento = (java.util.Date) in.readSerializable();
         dataPostado = (java.util.Date) in.readSerializable();
+        curso = in.readString();
+        campus = in.readInt();
     }
 
     @Override
@@ -73,6 +85,8 @@ public class Eventos implements Parcelable {
         dest.writeString(categoria);
         dest.writeSerializable(dataEvento);
         dest.writeSerializable(dataPostado);
+        dest.writeString(curso);
+        dest.writeInt(campus);
     }
 
     @Override

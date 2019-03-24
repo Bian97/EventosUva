@@ -16,7 +16,6 @@ import com.example.eventosuva.Helper.DateHandler;
 import com.example.eventosuva.Model.Eventos;
 import com.example.eventosuva.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -33,12 +32,27 @@ public class DetailsActivity extends AppCompatActivity {
         this.setup();
 
         evento = getIntent().getParcelableExtra("evento");
-
         Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
         text.setText(evento.getNome());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = dateFormat.format(evento.getDataEvento());
-        data.setText("Data do Evento: " + dateHandler.convertDateToShow(strDate) + "\nDescrição do Evento: " + evento.getDescricao());
+
+        SimpleDateFormat simpleDateFormat = dateHandler.createDateFormat();
+        String campus = "";
+        switch (evento.getCampus()) {
+            case 1:
+                campus = "Tijuca";
+                break;
+            case 2:
+                campus = "Barra da Tijuca";
+                break;
+            case 3:
+                campus = "Cabo Frio";
+        }
+
+        String string = "Campus do Evento: "+campus+"\n\nData do Evento: "
+                + simpleDateFormat.format(evento.getDataEvento())+ "\n\nCurso do Evento: "
+                + evento.getCurso() +"\n\nDescrição do Evento: " + evento.getDescricao();
+
+        data.setText(string);
     }
 
     public void setup(){
@@ -54,12 +68,6 @@ public class DetailsActivity extends AppCompatActivity {
         intent.putExtra("caminho", evento.getCaminho());
         imagem.buildDrawingCache();
         bitmap = imagem.getDrawingCache();
-
-        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] imageInByte = baos.toByteArray();*/
-
-        //intent.putExtra("bitmap", imageInByte);
         startActivity(intent);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.eventosuva.Presenter.GridPresenter;
 
+import android.util.Log;
+
 import com.example.eventosuva.Helper.DateHandler;
 import com.example.eventosuva.Helper.IDateHandler;
 import com.example.eventosuva.Model.Eventos;
@@ -37,7 +39,9 @@ public class GridPresenter implements IGridPresenter {
                         jA.getJSONObject(i).getString("caminho"),
                         jA.getJSONObject(i).getString("nome"),
                         jA.getJSONObject(i).getString("descricao"),
-                        "Recem adicionados", data1, data2);
+                        "Recem adicionados", data1, data2,
+                        jA.getJSONObject(i).getString("curso"),
+                        jA.getJSONObject(i).getInt("campus"));
                 if (choice == 0) {
                     if (date.isRecent(data1)) {
                         eventos.add(0, evento);
@@ -59,6 +63,7 @@ public class GridPresenter implements IGridPresenter {
                         eventos.add(0, evento);
                     }
                 }
+                Log.e("XAMPSON", evento.getNome());
             }
         } catch (JSONException e) {
             eventos.clear();

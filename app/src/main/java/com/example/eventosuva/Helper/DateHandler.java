@@ -111,28 +111,10 @@ public class DateHandler implements IDateHandler {
         return date;
     }
 
-    public String convertDateToShow(String strDate){//converter data do banco para a habitual brasileira
-        // formato de entrada deve ser 2017-01-17
-        SimpleDateFormat dateFormatIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        // sem argumentos, pega o formato do sistema para exibir a data
-        SimpleDateFormat dateFormatOut = new SimpleDateFormat();
-        // com argumentos formato e locale a saida e sempre a mesma
-        //  SimpleDateFormat dateFormatOut = new SimpleDateFormat("dd-MM-yy", Locale.US);
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormatIn.parse(strDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return stringToSpace(String.valueOf(dateFormatOut.format(convertedDate)));
+    @Override
+    public SimpleDateFormat createDateFormat() {
+        Locale localeBR = new Locale("pt", "BR");
+        return new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", localeBR);
     }
 
-    private String stringToSpace(String string){
-
-        int spaceIndex = string.indexOf(" ");
-        if(spaceIndex > 0) {
-            string = string.substring(0, spaceIndex);
-        }
-        return string;
-    }
 }
