@@ -43,7 +43,7 @@ public class GridPresenter implements IGridPresenter {
                         jA.getJSONObject(i).getString("curso"),
                         jA.getJSONObject(i).getInt("campus"));
                 if (choice == 0) {
-                    if (date.isRecent(data1)) {
+                    if (date.isRecent(data2)) {
                         eventos.add(0, evento);
                     }
                 } else if (choice == 1) {
@@ -62,6 +62,9 @@ public class GridPresenter implements IGridPresenter {
                     if (date.isYear(data1)) {
                         eventos.add(0, evento);
                     }
+                }
+                if(eventos == null){
+                    iGridActivity.onCreateListChoiceEmpty();
                 }
                 Log.e("XAMPSON", evento.getNome());
             }

@@ -4,4 +4,5 @@ public interface IGridActivity {
 
     void onCreateListError(String message);
     void onCreateListEmpty();
+    void onCreateListChoiceEmpty();
 }
