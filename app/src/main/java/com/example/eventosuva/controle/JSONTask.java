@@ -1,8 +1,8 @@
-package com.example.eventosuva.Controle;
+package com.example.eventosuva.controle;
 
 import android.os.AsyncTask;
 
-import com.example.eventosuva.Presenter.MenuPresenter.MenuPresenter;
+import com.example.eventosuva.ui.menu.MenuPresenter;
 
 public class JSONTask extends AsyncTask<String, String, String> {
 

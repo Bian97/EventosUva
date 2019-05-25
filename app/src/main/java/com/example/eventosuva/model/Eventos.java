@@ -1,4 +1,4 @@
-package com.example.eventosuva.Model;
+package com.example.eventosuva.model;
 
 
 import android.os.Parcel;

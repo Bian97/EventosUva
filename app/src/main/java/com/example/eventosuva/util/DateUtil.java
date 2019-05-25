@@ -1,4 +1,4 @@
-package com.example.eventosuva.Helper;
+package com.example.eventosuva.util;
 
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -9,13 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateHandler implements IDateHandler {
+public class DateUtil{
 
-    public DateHandler() {
-    }
-
-    @Override
-    public boolean isRecent(Date date) {
+    public static boolean isRecent(Date date) {
         Calendar hoje = Calendar.getInstance();
         Date hoje1 = hoje.getTime();
         Duration dur = new Duration(date.getTime(), hoje1.getTime());
@@ -26,8 +22,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public boolean isToday(Date date) {
+    public static boolean isToday(Date date) {
         Calendar calHoje = Calendar.getInstance();
         Date hoje = calHoje.getTime();
         LocalDate localDateHoje = new LocalDate(hoje);
@@ -40,8 +35,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public boolean isYesterday(Date date) {
+    public static boolean isYesterday(Date date) {
         Calendar hoje = Calendar.getInstance();
         Date hoje1 = hoje.getTime();
         LocalDate localDateHoje = new LocalDate(hoje1);
@@ -53,8 +47,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public boolean isWeek(Date date) {
+    public static boolean isWeek(Date date) {
         Calendar hoje = Calendar.getInstance();
         Date hoje1 = hoje.getTime();
         Duration dur = new Duration(hoje1.getTime(), date.getTime());
@@ -66,8 +59,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public boolean isMonth(Date date) {
+    public static boolean isMonth(Date date) {
         Calendar hoje = Calendar.getInstance();
         Calendar dataEvento = Calendar.getInstance();
         dataEvento.setTime(date);
@@ -82,8 +74,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public boolean isYear(Date date) {
+    public static boolean isYear(Date date) {
         Calendar hoje = Calendar.getInstance();
         Calendar dataEvento = Calendar.getInstance();
         dataEvento.setTime(date);
@@ -98,8 +89,7 @@ public class DateHandler implements IDateHandler {
         }
     }
 
-    @Override
-    public Date convertStringToData(String string) {
+    public static Date convertStringToData(String string) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
         try{
@@ -111,8 +101,7 @@ public class DateHandler implements IDateHandler {
         return date;
     }
 
-    @Override
-    public SimpleDateFormat createDateFormat() {
+    public static SimpleDateFormat createDateFormat() {
         Locale localeBR = new Locale("pt", "BR");
         return new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", localeBR);
     }

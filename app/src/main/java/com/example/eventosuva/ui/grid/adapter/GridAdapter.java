@@ -1,4 +1,4 @@
-package com.example.eventosuva.Adapter;
+package com.example.eventosuva.ui.grid.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.eventosuva.R;
-import com.example.eventosuva.Model.Eventos;
+import com.example.eventosuva.model.Eventos;
 
 import java.util.ArrayList;
 
@@ -22,13 +22,13 @@ import java.util.ArrayList;
  * Created by Victor on 21/11/2017.
  */
 
-public class EventosAdapter extends ArrayAdapter<Eventos> {
+public class GridAdapter extends ArrayAdapter<Eventos> {
 
     private ArrayList<Eventos> listaEventosAdapter;
     private Context context;
     private int layoutResourceId;
 
-    public EventosAdapter(Context context, int layoutResourceId, ArrayList<Eventos> lista) {
+    public GridAdapter(Context context, int layoutResourceId, ArrayList<Eventos> lista) {
         super(context,layoutResourceId,lista);
         listaEventosAdapter = lista;
         this.layoutResourceId = layoutResourceId;

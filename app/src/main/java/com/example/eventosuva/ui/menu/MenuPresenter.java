@@ -1,25 +1,25 @@
-package com.example.eventosuva.Presenter.MenuPresenter;
+package com.example.eventosuva.ui.menu;
 
 import android.os.AsyncTask;
 
-import com.example.eventosuva.Controle.JSONTask;
-import com.example.eventosuva.View.MenuActivity.IMenuActivity;
+import com.example.eventosuva.controle.JSONTask;
+import com.example.eventosuva.ui.menu.MenuContract.IMenuActivity;
 
-public class MenuPresenter implements IMenuPresenter {
+public class MenuPresenter implements MenuContract.IMenuPresenter {
 
     private IMenuActivity iMenuActivity;
     private JSONTask jsonTask;
 
-    public MenuPresenter(IMenuActivity iMenuActivity){
+    public MenuPresenter(IMenuActivity iMenuActivity) {
         this.iMenuActivity = iMenuActivity;
     }
 
     @Override
-    public void getRequest() {
+    public void getEventsJSON() {
         try {
             String url = "http://sicsu.net/uvapps/wsListData.php";
             String tipo = "GET";
-            if (jsonTask == null ||  jsonTask.getStatus() != AsyncTask.Status.RUNNING) {
+            if (jsonTask == null || jsonTask.getStatus() != AsyncTask.Status.RUNNING) {
                 jsonTask = new JSONTask(this);
                 jsonTask.execute(url, tipo);
             }
@@ -28,19 +28,16 @@ public class MenuPresenter implements IMenuPresenter {
         }
     }
 
-    public void beganLoading(){
+    public void beganLoading() {
         iMenuActivity.onLoadingBegin();
     }
 
-    public void failedLoading(){
+    public void failedLoading() {
         iMenuActivity.onLoadingFailure();
     }
 
-    public void finishedLoading(String json){
+    public void finishedLoading(String json) {
         iMenuActivity.onLoadingFinish(json);
     }
-
-
-
 
 }

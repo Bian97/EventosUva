@@ -1,4 +1,4 @@
-package com.example.eventosuva.View.DetailsActivity;
+package com.example.eventosuva.ui.details;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,15 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.eventosuva.View.ImageActivity.ImageActivity;
-import com.example.eventosuva.Helper.DateHandler;
-import com.example.eventosuva.Model.Eventos;
+import com.example.eventosuva.ui.image.ImageActivity;
+import com.example.eventosuva.util.DateUtil;
+import com.example.eventosuva.model.Eventos;
 import com.example.eventosuva.R;
 
 import java.text.SimpleDateFormat;
 
 public class DetailsActivity extends AppCompatActivity {
-    DateHandler dateHandler;
     ImageView imagem;
     TextView text,data;
     Eventos evento;
@@ -35,7 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
         text.setText(evento.getNome());
 
-        SimpleDateFormat simpleDateFormat = dateHandler.createDateFormat();
+        SimpleDateFormat simpleDateFormat = DateUtil.createDateFormat();
         String campus = "";
         switch (evento.getCampus()) {
             case 1:
@@ -60,7 +59,6 @@ public class DetailsActivity extends AppCompatActivity {
         imagem = findViewById(R.id.imagemDetalhe);
         text = findViewById(R.id.tituloDetalhe);
         data = findViewById(R.id.informacoesDetalhe);
-        dateHandler = new DateHandler();
     }
 
     public void onImagemDetalhesClick(View view) {

@@ -1,4 +1,4 @@
-package com.example.eventosuva.View.GridActivity;
+package com.example.eventosuva.ui.grid;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,11 +10,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.eventosuva.Adapter.EventosAdapter;
-import com.example.eventosuva.Presenter.GridPresenter.IGridPresenter;
-import com.example.eventosuva.View.DetailsActivity.DetailsActivity;
-import com.example.eventosuva.Model.Eventos;
-import com.example.eventosuva.Presenter.GridPresenter.GridPresenter;
+import com.example.eventosuva.ui.grid.GridContract.IGridPresenter;
+import com.example.eventosuva.ui.details.DetailsActivity;
+import com.example.eventosuva.ui.grid.adapter.GridAdapter;
+import com.example.eventosuva.model.Eventos;
 import com.example.eventosuva.R;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
  * Created by Bian on 21/11/2017.
  */
 
-public class GridActivity extends AppCompatActivity implements IGridActivity {
+public class GridActivity extends AppCompatActivity implements GridContract.IGridActivity {
 
     IGridPresenter iGridPresenter;
     GridView gridview;
@@ -40,7 +39,7 @@ public class GridActivity extends AppCompatActivity implements IGridActivity {
         position = getIntent().getIntExtra("position",-1);
         json = getIntent().getStringExtra("json");
         eventos = iGridPresenter.createList(position,json);
-        gridview.setAdapter(new EventosAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
+        gridview.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

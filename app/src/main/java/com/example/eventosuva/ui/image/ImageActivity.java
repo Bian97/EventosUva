@@ -1,4 +1,4 @@
-package com.example.eventosuva.View.ImageActivity;
+package com.example.eventosuva.ui.image;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

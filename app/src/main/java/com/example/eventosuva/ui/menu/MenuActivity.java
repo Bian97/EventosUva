@@ -1,24 +1,23 @@
-package com.example.eventosuva.View.MenuActivity;
+package com.example.eventosuva.ui.menu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.eventosuva.Presenter.MenuPresenter.IMenuPresenter;
-import com.example.eventosuva.Presenter.MenuPresenter.MenuPresenter;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eventosuva.R;
-import com.example.eventosuva.View.GridActivity.GridActivity;
+import com.example.eventosuva.ui.grid.GridActivity;
+import com.example.eventosuva.ui.menu.MenuContract.IMenuPresenter;
 
 /**
  * Created by Bian on 19/12/2017.
  */
 
-public class MenuActivity extends AppCompatActivity implements IMenuActivity {
+public class MenuActivity extends AppCompatActivity implements MenuContract.IMenuActivity {
 
     IMenuPresenter iMenuPresenter;
     ProgressDialog progressDialog;
@@ -28,34 +27,31 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setup();
-        iMenuPresenter.getRequest();
+        iMenuPresenter.getEventsJSON();
     }
 
-    public void setup(){
+    public void setup() {
         iMenuPresenter = new MenuPresenter(this);
         iniciarTela();
-        Toast.makeText(this, R.string.app_creators , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }
 
-    public void iniciarTela(){
+    public void iniciarTela() {
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             setContentView(R.layout.activity_grid_categoria);
-        }
-        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
             setContentView(R.layout.activity_grid_categoria);
-        }
-        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             setContentView(R.layout.activity_grid_categoria);
-        }
-        else {
+        } else {
             setContentView(R.layout.activity_grid_categoria);
         }
     }
 
-    public void proximaActivity(int position){
+    public void proximaActivity(int position) {
         Intent intent = new Intent(MenuActivity.this, GridActivity.class);
-        intent.putExtra("position",position);
-        intent.putExtra("json",json);
+        intent.putExtra("position", position);
+        intent.putExtra("json", json);
         startActivity(intent);
     }
 
@@ -81,7 +77,7 @@ public class MenuActivity extends AppCompatActivity implements IMenuActivity {
 
     @Override
     public void onLoadingBegin() {
-        progressDialog = ProgressDialog.show(MenuActivity.this,"Aguarde um pouco.", "Carregando informações...", false, false);
+        progressDialog = ProgressDialog.show(MenuActivity.this, "Aguarde um pouco.", "Carregando informações...", false, false);
     }
 
     @Override
