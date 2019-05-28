@@ -5,7 +5,7 @@ public interface MenuContract {
     interface IMenuActivity {
         void onLoadingBegin();
         void onLoadingFailure();
-        void onLoadingFinish(String json);
+        void onLoadingSuccess(String json);
     }
 
     interface IMenuPresenter {

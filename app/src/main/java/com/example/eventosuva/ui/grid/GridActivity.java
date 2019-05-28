@@ -52,7 +52,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.IGri
     }
 
     public void setup(){
-        setContentView(R.layout.activity_grid_view);
+        setContentView(R.layout.fragment_grid_view);
         gridview = findViewById(R.id.gridview);
         iGridPresenter = new GridPresenter(this);
         eventos = new ArrayList<>();

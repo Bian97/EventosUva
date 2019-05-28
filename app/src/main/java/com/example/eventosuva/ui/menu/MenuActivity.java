@@ -2,7 +2,6 @@ package com.example.eventosuva.ui.menu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -19,7 +18,7 @@ import com.example.eventosuva.ui.menu.MenuContract.IMenuPresenter;
 
 public class MenuActivity extends AppCompatActivity implements MenuContract.IMenuActivity {
 
-    IMenuPresenter iMenuPresenter;
+    IMenuPresenter presenter;
     ProgressDialog progressDialog;
     String json;
 
@@ -27,52 +26,48 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.IMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setup();
-        iMenuPresenter.getEventsJSON();
+        presenter.getEventsJSON();
     }
 
     public void setup() {
-        iMenuPresenter = new MenuPresenter(this);
-        iniciarTela();
+        presenter = new MenuPresenter(this);
+        initView();
+    }
+
+    public void initView() {
+        setContentView(R.layout.fragment_category);
         Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }
 
-    public void iniciarTela() {
-        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            setContentView(R.layout.activity_grid_categoria);
-        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            setContentView(R.layout.activity_grid_categoria);
-        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-            setContentView(R.layout.activity_grid_categoria);
-        } else {
-            setContentView(R.layout.activity_grid_categoria);
-        }
-    }
-
-    public void proximaActivity(int position) {
+    public void nextActivity(int position) {
         Intent intent = new Intent(MenuActivity.this, GridActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("json", json);
         startActivity(intent);
     }
 
-    public void onRecentesClick(View view) {
-        proximaActivity(0);
-    }
-
-    public void onHojeClick(View view) {
-        proximaActivity(1);
-    }
-
-    public void onSeteDiasClick(View view) {
-        proximaActivity(2);
-    }
-
-    public void onMesClick(View view) {
-        proximaActivity(3);
-    }
-
-    public void onAnoClick(View view) {
-        proximaActivity(4);
+    public void onClick(View view) {
+        int position;
+        switch (view.getId()) {
+            case R.id.clNewEvents:
+                position = 0;
+                break;
+            case R.id.clTodayEvents:
+                position = 1;
+                break;
+            case R.id.clWeekEvents:
+                position = 2;
+                break;
+            case R.id.clMonthEvents:
+                position = 3;
+                break;
+            case R.id.clYearEvents:
+                position = 4;
+                break;
+            default:
+                return;
+        }
+        nextActivity(position);
     }
 
     @Override
@@ -87,7 +82,7 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.IMen
     }
 
     @Override
-    public void onLoadingFinish(String json) {
+    public void onLoadingSuccess(String json) {
         this.json = json;
         progressDialog.dismiss();
         Toast.makeText(getApplicationContext(), "Eventos atualizados!", Toast.LENGTH_LONG).show();

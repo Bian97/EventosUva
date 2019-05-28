@@ -1,4 +1,4 @@
-package com.example.eventosuva.controle;
+package com.example.eventosuva.control;
 
 import android.os.AsyncTask;
 

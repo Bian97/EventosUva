@@ -2,7 +2,7 @@ package com.example.eventosuva.ui.menu;
 
 import android.os.AsyncTask;
 
-import com.example.eventosuva.controle.JSONTask;
+import com.example.eventosuva.control.JSONTask;
 import com.example.eventosuva.ui.menu.MenuContract.IMenuActivity;
 
 public class MenuPresenter implements MenuContract.IMenuPresenter {
@@ -37,7 +37,7 @@ public class MenuPresenter implements MenuContract.IMenuPresenter {
     }
 
     public void finishedLoading(String json) {
-        iMenuActivity.onLoadingFinish(json);
+        iMenuActivity.onLoadingSuccess(json);
     }
 
 }

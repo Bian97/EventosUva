@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/telaprincipal">
+
+    <ImageView
+        android:id="@+id/ivUvaLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/uva"
+        app:layout_constraintBottom_toTopOf="@+id/clNewEvents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNewEvents"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="100dp"
+        android:background="@color/lighterBlue"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvNewEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="@string/events_new"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/verticalLine"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivNewEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/addrecentes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verticalLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTodayEvents"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/lightBlue"
+        android:onClick="onClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clNewEvents">
+
+        <TextView
+            android:id="@+id/tvTodayEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="@string/events_today"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalLine2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/verticalLine2"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivTodayEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/hoje"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verticalLine2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clWeekEvents"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/blue"
+        android:onClick="onClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clTodayEvents">
+
+        <TextView
+            android:id="@+id/tvWeekEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="@string/events_seven"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalLine3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/verticalLine3"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivWeekEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/sete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verticalLine3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMonthEvents"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/darkBlue"
+        android:onClick="onClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clWeekEvents">
+
+        <TextView
+            android:id="@+id/tvMonthEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="@string/events_month"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalLine4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/verticalLine4"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivMonthEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/calendario"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verticalLine4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clYearEvents"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/darkerBlue"
+        android:onClick="onClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clMonthEvents">
+
+        <TextView
+            android:id="@+id/tvYearEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="@string/events_year"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalLine5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/verticalLine5"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivYearEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/timeline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verticalLine5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
