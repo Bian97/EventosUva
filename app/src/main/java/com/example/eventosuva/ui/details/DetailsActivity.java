@@ -19,8 +19,10 @@ import com.example.eventosuva.R;
 import java.text.SimpleDateFormat;
 
 public class DetailsActivity extends AppCompatActivity {
+
     ImageView imagem;
     TextView text,data;
+
     Eventos evento;
     Bitmap bitmap;
 

@@ -13,6 +13,7 @@ import com.github.chrisbanes.photoview.PhotoView;
  */
 
 public class ImageActivity extends AppCompatActivity {
+
     PhotoView imagem;
 
     @SuppressLint("StaticFieldLeak")

@@ -24,13 +24,13 @@ import java.util.ArrayList;
 
 public class GridAdapter extends ArrayAdapter<Eventos> {
 
-    private ArrayList<Eventos> listaEventosAdapter;
+    private ArrayList<Eventos> eventsList;
     private Context context;
     private int layoutResourceId;
 
-    public GridAdapter(Context context, int layoutResourceId, ArrayList<Eventos> lista) {
-        super(context,layoutResourceId,lista);
-        listaEventosAdapter = lista;
+    public GridAdapter(Context context, int layoutResourceId, ArrayList<Eventos> eventsList) {
+        super(context,layoutResourceId,eventsList);
+        this.eventsList = eventsList;
         this.layoutResourceId = layoutResourceId;
         this.context = context;
     }
@@ -56,7 +56,7 @@ public class GridAdapter extends ArrayAdapter<Eventos> {
         else{
             holder = (ViewHolder) row.getTag();
         }
-        Eventos evento = listaEventosAdapter.get(position);
+        Eventos evento = eventsList.get(position);
         holder.nome.setText(evento.getNome());
         Glide.with(getContext()).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(holder.imagem);
         return row;

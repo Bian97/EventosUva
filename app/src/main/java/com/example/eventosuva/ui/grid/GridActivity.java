@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.eventosuva.ui.grid.GridContract.IGridPresenter;
 import com.example.eventosuva.ui.details.DetailsActivity;
 import com.example.eventosuva.ui.grid.adapter.GridAdapter;
 import com.example.eventosuva.model.Eventos;
@@ -22,14 +21,14 @@ import java.util.ArrayList;
  * Created by Bian on 21/11/2017.
  */
 
-public class GridActivity extends AppCompatActivity implements GridContract.IGridActivity {
+public class GridActivity extends AppCompatActivity implements GridContract.onCreateListListener {
 
-    IGridPresenter iGridPresenter;
     GridView gridview;
+
     int position;
     String json;
-
     ArrayList<Eventos> eventos;
+    GridPresenter presenter;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -38,7 +37,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.IGri
         this.setup();
         position = getIntent().getIntExtra("position",-1);
         json = getIntent().getStringExtra("json");
-        eventos = iGridPresenter.createList(position,json);
+        eventos = presenter.createList(this, position,json);
         gridview.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +53,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.IGri
     public void setup(){
         setContentView(R.layout.fragment_grid_view);
         gridview = findViewById(R.id.gridview);
-        iGridPresenter = new GridPresenter(this);
+        presenter = new GridPresenter();
         eventos = new ArrayList<>();
     }
 

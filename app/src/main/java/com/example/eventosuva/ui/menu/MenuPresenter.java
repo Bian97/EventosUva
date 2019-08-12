@@ -2,42 +2,64 @@ package com.example.eventosuva.ui.menu;
 
 import android.os.AsyncTask;
 
-import com.example.eventosuva.control.JSONTask;
-import com.example.eventosuva.ui.menu.MenuContract.IMenuActivity;
+import com.example.eventosuva.control.EventosDAO;
 
-public class MenuPresenter implements MenuContract.IMenuPresenter {
+public class MenuPresenter implements MenuContract.Presenter {
 
-    private IMenuActivity iMenuActivity;
-    private JSONTask jsonTask;
+    private EventsListTask task;
 
-    public MenuPresenter(IMenuActivity iMenuActivity) {
-        this.iMenuActivity = iMenuActivity;
+    public MenuPresenter() {
     }
 
     @Override
-    public void getEventsJSON() {
+    public void getEventsList(MenuContract.onGetEventsListener listener) {
         try {
             String url = "http://sicsu.net/uvapps/wsListData.php";
             String tipo = "GET";
-            if (jsonTask == null || jsonTask.getStatus() != AsyncTask.Status.RUNNING) {
-                jsonTask = new JSONTask(this);
-                jsonTask.execute(url, tipo);
+            if (task == null || task.getStatus() != AsyncTask.Status.RUNNING) {
+                task = new EventsListTask(listener);
+                task.execute(url, tipo);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void beganLoading() {
-        iMenuActivity.onLoadingBegin();
-    }
+    public static class EventsListTask extends AsyncTask<String, String, String> {
 
-    public void failedLoading() {
-        iMenuActivity.onLoadingFailure();
-    }
+        private MenuContract.onGetEventsListener listener;
 
-    public void finishedLoading(String json) {
-        iMenuActivity.onLoadingSuccess(json);
+        public EventsListTask(MenuContract.onGetEventsListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            listener.onLoadingBegin();
+            System.out.println("Baixando informações...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            EventosDAO aD = new EventosDAO();
+            String aux = null;
+            if(params[1].equalsIgnoreCase("GET")){
+                aux = aD.request(params[0]);
+            } else if(params[1].equalsIgnoreCase("POST") || params[1].equalsIgnoreCase("PUT")){
+                aux = aD.post(params[0], params[1], params[2]);
+            }
+            return aux;
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            if(json != null) {
+                listener.onLoadingSuccess(json);
+            } else {
+                listener.onLoadingFailure();
+            }
+        }
     }
 
 }

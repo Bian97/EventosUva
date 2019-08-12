@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public interface GridContract {
 
-    interface IGridActivity {
+    interface onCreateListListener {
         void onCreateListError(String message);
         void onCreateListEmpty();
         void onCreateListChoiceEmpty();
     }
 
-    interface IGridPresenter {
-        ArrayList<Eventos> createList(int choice, String json);
+    interface Presenter {
+        ArrayList<Eventos> createList(onCreateListListener listener, int choice, String json);
     }
 
 }

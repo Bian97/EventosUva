@@ -10,15 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eventosuva.R;
 import com.example.eventosuva.ui.grid.GridActivity;
-import com.example.eventosuva.ui.menu.MenuContract.IMenuPresenter;
 
 /**
  * Created by Bian on 19/12/2017.
  */
 
-public class MenuActivity extends AppCompatActivity implements MenuContract.IMenuActivity {
+public class MenuActivity extends AppCompatActivity implements MenuContract.onGetEventsListener {
 
-    IMenuPresenter presenter;
+    MenuPresenter presenter;
     ProgressDialog progressDialog;
     String json;
 
@@ -26,15 +25,11 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.IMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setup();
-        presenter.getEventsJSON();
+        presenter.getEventsList(this);
     }
 
     public void setup() {
-        presenter = new MenuPresenter(this);
-        initView();
-    }
-
-    public void initView() {
+        presenter = new MenuPresenter();
         setContentView(R.layout.fragment_category);
         Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }

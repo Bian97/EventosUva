@@ -2,7 +2,6 @@ package com.example.eventosuva.ui.grid;
 
 import android.util.Log;
 
-import com.example.eventosuva.ui.grid.GridContract.IGridActivity;
 import com.example.eventosuva.util.DateUtil;
 import com.example.eventosuva.model.Eventos;
 
@@ -12,17 +11,15 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GridPresenter implements GridContract.IGridPresenter {
+public class GridPresenter implements GridContract.Presenter {
 
-    private IGridActivity iGridActivity;
     private ArrayList<Eventos> eventos = new ArrayList<>();
 
-    public GridPresenter(IGridActivity iGridActivity) {
-        this.iGridActivity = iGridActivity;
+    public GridPresenter() {
     }
 
     @Override
-    public ArrayList<Eventos> createList(int choice, String json) {
+    public ArrayList<Eventos> createList(GridContract.onCreateListListener listener, int choice, String json) {
         Eventos evento;
         try {
             JSONArray jA = new JSONArray(json);
@@ -61,18 +58,18 @@ public class GridPresenter implements GridContract.IGridPresenter {
                     }
                 }
                 if(eventos == null){
-                    iGridActivity.onCreateListChoiceEmpty();
+                    listener.onCreateListChoiceEmpty();
                 }
                 Log.e("XAMPSON", evento.getNome());
             }
         } catch (JSONException e) {
             eventos.clear();
             e.printStackTrace();
-            iGridActivity.onCreateListError(e.getMessage());
+            listener.onCreateListError(e.getMessage());
         } catch (NullPointerException e) {
-            iGridActivity.onCreateListEmpty();
+            listener.onCreateListEmpty();
         } catch (Exception e){
-            iGridActivity.onCreateListError(e.getMessage());
+            listener.onCreateListError(e.getMessage());
         }
         return eventos;
     }
