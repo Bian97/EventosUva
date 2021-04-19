@@ -23,8 +23,7 @@ public class ImageActivity extends AppCompatActivity {
         this.setup();
 
         String caminho = getIntent().getStringExtra("caminho");
-        //Bitmap aux = BitmapFactory.decodeFile(evento.getCaminho());
-        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+caminho).into(imagem);
+        Glide.with(this).load("http://cadier.com.br/uvapp/Imagens/"+caminho).into(imagem);
     }
 
     public void setup(){

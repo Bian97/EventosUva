@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.onGe
     public void setup() {
         presenter = new MenuPresenter();
         setContentView(R.layout.fragment_category);
-        Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }
 
     public void nextActivity(int position) {

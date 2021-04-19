@@ -24,18 +24,18 @@ public class GridPresenter implements GridContract.Presenter {
         try {
             JSONArray jA = new JSONArray(json);
             for (int i = 0; i < jA.length(); i++) {
-                String dataEvento = jA.getJSONObject(i).getString("dataevento");
-                String dataPostado = jA.getJSONObject(i).getString("datapostado");
+                String dataEvento = jA.getJSONObject(i).getString("DataEvento");
+                String dataPostado = jA.getJSONObject(i).getString("DataPostado");
                 Date data1 = DateUtil.convertStringToData(dataEvento);
                 Date data2 = DateUtil.convertStringToData(dataPostado);
 
-                evento = new Eventos(jA.getJSONObject(i).getInt("codigo"),
-                        jA.getJSONObject(i).getString("caminho"),
-                        jA.getJSONObject(i).getString("nome"),
-                        jA.getJSONObject(i).getString("descricao"),
+                evento = new Eventos(jA.getJSONObject(i).getInt("IdEvento"),
+                        jA.getJSONObject(i).getString("Caminho"),
+                        jA.getJSONObject(i).getString("Nome"),
+                        jA.getJSONObject(i).getString("Descricao"),
                         "Recem adicionados", data1, data2,
-                        jA.getJSONObject(i).getString("curso"),
-                        jA.getJSONObject(i).getInt("campus"));
+                        jA.getJSONObject(i).getString("Curso"),
+                        jA.getJSONObject(i).getInt("Campus"));
                 if (choice == 0) {
                     if (DateUtil.isRecent(data2)) {
                         eventos.add(0, evento);

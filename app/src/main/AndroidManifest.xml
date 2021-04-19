@@ -45,6 +45,7 @@
         android:icon="@drawable/uva"
         android:label="UVA Categorias"
         android:roundIcon="@drawable/uva"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:logo="@drawable/uva"
         android:theme="@style/AppTheme">

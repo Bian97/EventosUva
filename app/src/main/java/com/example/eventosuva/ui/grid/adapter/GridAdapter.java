@@ -58,7 +58,7 @@ public class GridAdapter extends ArrayAdapter<Eventos> {
         }
         Eventos evento = eventsList.get(position);
         holder.nome.setText(evento.getNome());
-        Glide.with(getContext()).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(holder.imagem);
+        Glide.with(getContext()).load("http://cadier.com.br/uvapp/Imagens/"+evento.getCaminho()).into(holder.imagem);
         return row;
     }
     static class ViewHolder {

@@ -33,19 +33,19 @@ public class DetailsActivity extends AppCompatActivity {
         this.setup();
 
         evento = getIntent().getParcelableExtra("evento");
-        Glide.with(this).load("http://sicsu.net/uvapps/Imagens/"+evento.getCaminho()).into(imagem);
+        Glide.with(this).load("http://cadier.com.br/uvapp/Imagens/"+evento.getCaminho()).into(imagem);
         text.setText(evento.getNome());
 
         SimpleDateFormat simpleDateFormat = DateUtil.createDateFormat();
         String campus = "";
         switch (evento.getCampus()) {
-            case 1:
+            case 0:
                 campus = "Tijuca";
                 break;
-            case 2:
+            case 1:
                 campus = "Barra da Tijuca";
                 break;
-            case 3:
+            case 2:
                 campus = "Cabo Frio";
         }
 
