@@ -4,6 +4,8 @@ package com.example.eventosuva.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 /**
@@ -14,7 +16,8 @@ public class Eventos implements Parcelable {
     private int codigo, campus;
     private String caminho, nome;
     private String categoria, descricao, curso;
-    private Date dataEvento, dataPostado;
+    private Date dataEvento;
+    private Date dataPostado;
 
     public Eventos(int codigo, String caminho, String nome, String descricao, String categoria, Date dataEvento, Date dataPostado, String curso, int campus) {
         this.codigo = codigo;
@@ -70,7 +73,7 @@ public class Eventos implements Parcelable {
         nome = in.readString();
         descricao = in.readString();
         categoria = in.readString();
-        dataEvento = (java.util.Date) in.readSerializable();
+        dataEvento = (Date) in.readSerializable();
         dataPostado = (java.util.Date) in.readSerializable();
         curso = in.readString();
         campus = in.readInt();

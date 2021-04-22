@@ -1,8 +1,10 @@
 package com.example.eventosuva.util;
 
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -89,8 +91,20 @@ public class DateUtil{
         }
     }
 
-    public static Date convertStringToData(String string) {
+    public static Date convertStringToDate(String string) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+        try{
+            date = dateFormat.parse(string);
+        }catch (ParseException e){
+            date = null;
+            System.out.println("Exceção: "+ e.getMessage());
+        }
+        return date;
+    }
+
+    public static Date convertStringToDateTime(String string) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", new Locale("pt", "BR"));
         Date date;
         try{
             date = dateFormat.parse(string);
@@ -103,7 +117,7 @@ public class DateUtil{
 
     public static SimpleDateFormat createDateFormat() {
         Locale localeBR = new Locale("pt", "BR");
-        return new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", localeBR);
+        return new SimpleDateFormat("dd 'de' MMMM 'de' yyyy 'às' HH:mm'hrs'", localeBR);
     }
 
 }

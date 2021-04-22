@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.eventosuva.util.DateUtil;
 import com.example.eventosuva.model.Eventos;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -26,8 +27,8 @@ public class GridPresenter implements GridContract.Presenter {
             for (int i = 0; i < jA.length(); i++) {
                 String dataEvento = jA.getJSONObject(i).getString("DataEvento");
                 String dataPostado = jA.getJSONObject(i).getString("DataPostado");
-                Date data1 = DateUtil.convertStringToData(dataEvento);
-                Date data2 = DateUtil.convertStringToData(dataPostado);
+                Date data1 = DateUtil.convertStringToDateTime(dataEvento);
+                Date data2 = DateUtil.convertStringToDate(dataPostado);
 
                 evento = new Eventos(jA.getJSONObject(i).getInt("IdEvento"),
                         jA.getJSONObject(i).getString("Caminho"),

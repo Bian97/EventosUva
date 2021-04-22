@@ -9,11 +9,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <supports-screens android:resizeable="true"
-    android:smallScreens="true"
-    android:normalScreens="true"
-    android:largeScreens="true"
-    android:xlargeScreens="true"
-    android:anyDensity="true"/>
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"/>
 
     <compatible-screens>
         <!-- all small size screens -->
@@ -48,7 +48,8 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:logo="@drawable/uva"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
+        <!--android:theme="@style/AppTheme"-->
         <activity android:name=".ui.menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

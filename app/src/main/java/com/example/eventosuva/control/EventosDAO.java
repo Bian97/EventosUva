@@ -31,12 +31,12 @@ public class EventosDAO {
             conn.setRequestProperty("User-Agent", USER_AGENT);
             int responseCode = conn.getResponseCode();
             if(responseCode == HttpURLConnection.HTTP_OK){
-                System.out.println("CONECTOU! " + responseCode);
+                //System.out.println("CONECTOU! " + responseCode);
             } else {
                 //System.out.println("DEU RUIM!!");
             }
-            System.out.println("\nSending 'GET' request to URL : " + stringUrl);
-            System.out.println("Response Code : " + responseCode);
+            /*System.out.println("\nSending 'GET' request to URL : " + stringUrl);
+            System.out.println("Response Code : " + responseCode);*/
 
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
@@ -47,13 +47,13 @@ public class EventosDAO {
                 response.append(inputLine);
             }
             in.close();
-            System.out.println("CONECTOU!"+response.toString());
+            //System.out.println("CONECTOU!"+response.toString());
             return response.toString();
         } catch (MalformedJsonException e) {
-            System.out.println("Erro: " + e.getMessage());
+            //System.out.println("Erro: " + e.getMessage());
             return null;
         } catch (IOException e) {
-            System.out.println("Erro: " + e.getMessage());
+            //System.out.println("Erro: " + e.getMessage());
             return null;
         } finally {
             if(conn != null) {
@@ -64,7 +64,7 @@ public class EventosDAO {
                     in.close();
                 }
             } catch(IOException e){
-                System.out.println("Erro!! "+ e.getMessage());
+                //System.out.println("Erro!! "+ e.getMessage());
             }
         }
     }

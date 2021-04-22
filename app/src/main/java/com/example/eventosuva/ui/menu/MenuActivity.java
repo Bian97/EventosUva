@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eventosuva.R;
@@ -31,6 +33,11 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.onGe
     public void setup() {
         presenter = new MenuPresenter();
         setContentView(R.layout.fragment_category);
+        Toolbar topToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(topToolBar);
+        /*ActionBar actionBar = getSupportActionBar(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);*/
+
         //Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }
 
@@ -63,6 +70,12 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.onGe
                 return;
         }
         nextActivity(position);
+    }
+
+    public void reloadActivity(View view){
+        Intent intent = new Intent(MenuActivity.this, MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
