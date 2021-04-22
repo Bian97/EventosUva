@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <GridView
-        android:id="@+id/gridview"
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+        android:id="@+id/list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:numColumns="1"
@@ -27,5 +27,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/horizontalLine">
 
-    </GridView>
+    </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

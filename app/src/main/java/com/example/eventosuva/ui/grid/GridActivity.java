@@ -7,16 +7,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.eventosuva.ui.details.DetailsActivity;
 import com.example.eventosuva.ui.grid.adapter.GridAdapter;
 import com.example.eventosuva.model.Eventos;
 import com.example.eventosuva.R;
-import com.example.eventosuva.ui.menu.MenuActivity;
+import com.example.eventosuva.util.SortByCampi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by Bian on 21/11/2017.
@@ -24,7 +28,7 @@ import java.util.ArrayList;
 
 public class GridActivity extends AppCompatActivity implements GridContract.onCreateListListener {
 
-    GridView gridview;
+    StickyListHeadersListView listView;
 
     int position;
     String json;
@@ -38,10 +42,16 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
         this.setup();
         position = getIntent().getIntExtra("position",-1);
         json = getIntent().getStringExtra("json");
-        eventos = presenter.createList(this, position,json);
-        gridview.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
+        eventos = presenter.createList(this, position, json);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Collections.sort(eventos, new SortByCampi());
+
+        StickyListHeadersAdapter adapter = new GridAdapter(this, R.layout.activity_grid_image, eventos);
+        listView.setAdapter(adapter);
+
+        //listView.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(GridActivity.this, DetailsActivity.class);
@@ -53,7 +63,8 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
 
     public void setup(){
         setContentView(R.layout.fragment_grid_view);
-        gridview = findViewById(R.id.gridview);
+        //listView = findViewById(R.id.list);
+        listView = (StickyListHeadersListView) findViewById(R.id.list);
         presenter = new GridPresenter();
         eventos = new ArrayList<>();
     }
