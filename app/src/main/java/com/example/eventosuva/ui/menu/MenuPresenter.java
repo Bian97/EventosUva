@@ -14,7 +14,7 @@ public class MenuPresenter implements MenuContract.Presenter {
     @Override
     public void getEventsList(MenuContract.onGetEventsListener listener) {
         try {
-            String url = "http://cadier.com.br/uvapp/wsListEventos.php";
+            String url = "http://cadier.com.br/uvapp/wsListEvents.php";
             String type = "GET";
             if (task == null || task.getStatus() != AsyncTask.Status.RUNNING) {
                 task = new EventsListTask(listener);
