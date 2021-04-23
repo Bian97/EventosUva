@@ -11,14 +11,13 @@ import android.widget.Toast;
 
 import com.example.eventosuva.ui.details.DetailsActivity;
 import com.example.eventosuva.ui.grid.adapter.GridAdapter;
-import com.example.eventosuva.model.Eventos;
+import com.example.eventosuva.model.Event;
 import com.example.eventosuva.R;
 import com.example.eventosuva.util.SortByCampi;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -32,7 +31,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
 
     int position;
     String json;
-    ArrayList<Eventos> eventos;
+    ArrayList<Event> events;
     GridPresenter presenter;
 
     @SuppressLint("StaticFieldLeak")
@@ -42,11 +41,11 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
         this.setup();
         position = getIntent().getIntExtra("position",-1);
         json = getIntent().getStringExtra("json");
-        eventos = presenter.createList(this, position, json);
+        events = presenter.createList(this, position, json);
 
-        Collections.sort(eventos, new SortByCampi());
+        Collections.sort(events, new SortByCampi());
 
-        StickyListHeadersAdapter adapter = new GridAdapter(this, R.layout.activity_grid_image, eventos);
+        StickyListHeadersAdapter adapter = new GridAdapter(this, R.layout.activity_grid_image, events);
         listView.setAdapter(adapter);
 
         //listView.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
@@ -55,7 +54,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(GridActivity.this, DetailsActivity.class);
-                intent.putExtra("evento",eventos.get(position));
+                intent.putExtra("event", events.get(position));
                 startActivity(intent);
             }
         });
@@ -66,7 +65,7 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
         //listView = findViewById(R.id.list);
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         presenter = new GridPresenter();
-        eventos = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     @Override

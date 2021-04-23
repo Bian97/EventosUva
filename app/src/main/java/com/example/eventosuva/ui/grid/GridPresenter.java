@@ -3,9 +3,8 @@ package com.example.eventosuva.ui.grid;
 import android.util.Log;
 
 import com.example.eventosuva.util.DateUtil;
-import com.example.eventosuva.model.Eventos;
+import com.example.eventosuva.model.Event;
 
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -14,57 +13,55 @@ import java.util.Date;
 
 public class GridPresenter implements GridContract.Presenter {
 
-    private ArrayList<Eventos> eventos = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
 
     public GridPresenter() {
     }
 
     @Override
-    public ArrayList<Eventos> createList(GridContract.onCreateListListener listener, int choice, String json) {
-        Eventos evento;
+    public ArrayList<Event> createList(GridContract.onCreateListListener listener, int choice, String json) {
+        Event event;
         try {
             JSONArray jA = new JSONArray(json);
             for (int i = 0; i < jA.length(); i++) {
-                String dataEvento = jA.getJSONObject(i).getString("DataEvento");
-                String dataPostado = jA.getJSONObject(i).getString("DataPostado");
-                Date data1 = DateUtil.convertStringToDateTime(dataEvento);
-                Date data2 = DateUtil.convertStringToDate(dataPostado);
+                Date eventDate = DateUtil.convertStringToDateTime(jA.getJSONObject(i).getString("EventDate"));
+                Date publishDate = DateUtil.convertStringToDate(jA.getJSONObject(i).getString("PublishDate"));
 
-                evento = new Eventos(jA.getJSONObject(i).getInt("IdEvento"),
-                        jA.getJSONObject(i).getString("Caminho"),
-                        jA.getJSONObject(i).getString("Nome"),
-                        jA.getJSONObject(i).getString("Descricao"),
-                        "Recem adicionados", data1, data2,
-                        jA.getJSONObject(i).getString("Curso"),
+                event = new Event(jA.getJSONObject(i).getInt("IdEvent"),
+                        jA.getJSONObject(i).getString("Path"),
+                        jA.getJSONObject(i).getString("Name"),
+                        jA.getJSONObject(i).getString("Description"),
+                        "Recem adicionados", eventDate, publishDate,
+                        jA.getJSONObject(i).getString("Course"),
                         jA.getJSONObject(i).getInt("Campus"));
+
                 if (choice == 0) {
-                    if (DateUtil.isRecent(data2)) {
-                        eventos.add(0, evento);
+                    if (DateUtil.isRecent(publishDate)) {
+                        events.add(0, event);
                     }
                 } else if (choice == 1) {
-                    if (DateUtil.isToday(data1)) {
-                        eventos.add(0, evento);
+                    if (DateUtil.isToday(eventDate)) {
+                        events.add(0, event);
                     }
                 } else if (choice == 2) {
-                    if (DateUtil.isWeek(data1)) {
-                        eventos.add(0, evento);
+                    if (DateUtil.isWeek(eventDate)) {
+                        events.add(0, event);
                     }
                 } else if (choice == 3) {
-                    if (DateUtil.isMonth(data1)) {
-                        eventos.add(0, evento);
+                    if (DateUtil.isMonth(eventDate)) {
+                        events.add(0, event);
                     }
                 } else if (choice == 4) {
-                    if (DateUtil.isYear(data1)) {
-                        eventos.add(0, evento);
+                    if (DateUtil.isYear(eventDate)) {
+                        events.add(0, event);
                     }
                 }
-                if(eventos == null){
+                if(events == null){
                     listener.onCreateListChoiceEmpty();
                 }
-                Log.e("XAMPSON", evento.getNome());
             }
         } catch (JSONException e) {
-            eventos.clear();
+            events.clear();
             e.printStackTrace();
             listener.onCreateListError(e.getMessage());
         } catch (NullPointerException e) {
@@ -72,6 +69,6 @@ public class GridPresenter implements GridContract.Presenter {
         } catch (Exception e){
             listener.onCreateListError(e.getMessage());
         }
-        return eventos;
+        return events;
     }
 }

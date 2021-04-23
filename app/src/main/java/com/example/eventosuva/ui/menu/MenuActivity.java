@@ -35,8 +35,6 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.onGe
         setContentView(R.layout.fragment_category);
         Toolbar topToolBar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(topToolBar);
-        /*ActionBar actionBar = getSupportActionBar(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);*/
 
         //Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }

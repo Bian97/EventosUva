@@ -14,9 +14,9 @@ import java.util.Locale;
 public class DateUtil{
 
     public static boolean isRecent(Date date) {
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        Duration dur = new Duration(date.getTime(), hoje1.getTime());
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        Duration dur = new Duration(date.getTime(), today.getTime());
         if((dur.getStandardDays() >= -1 && dur.getStandardDays() <= 1) || dur.getStandardDays() == 0){
             return true;
         } else {
@@ -25,11 +25,11 @@ public class DateUtil{
     }
 
     public static boolean isToday(Date date) {
-        Calendar calHoje = Calendar.getInstance();
-        Date hoje = calHoje.getTime();
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(date);
-        if(localDateEvento.equals(localDateHoje)){
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        LocalDate localDateToday = new LocalDate(today);
+        LocalDate localDateEvent = new LocalDate(date);
+        if(localDateEvent.equals(localDateToday)){
             return true;
         }
         else{
@@ -38,55 +38,55 @@ public class DateUtil{
     }
 
     public static boolean isYesterday(Date date) {
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        LocalDate localDateHoje = new LocalDate(hoje1);
-        LocalDate localDateEvento = new LocalDate(date);
-        if(localDateEvento.isBefore(localDateHoje)){
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        LocalDate localDateToday = new LocalDate(today);
+        LocalDate localDateEvent = new LocalDate(date);
+        if(localDateEvent.isBefore(localDateToday)){
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public static boolean isWeek(Date date) {
-        Calendar hoje = Calendar.getInstance();
-        Date hoje1 = hoje.getTime();
-        Duration dur = new Duration(hoje1.getTime(), date.getTime());
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        Duration dur = new Duration(today.getTime(), date.getTime());
 
         if(dur.getStandardDays() <= 6 && dur.getStandardDays() >= 0){
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public static boolean isMonth(Date date) {
-        Calendar hoje = Calendar.getInstance();
-        Calendar dataEvento = Calendar.getInstance();
-        dataEvento.setTime(date);
+        Calendar calendar = Calendar.getInstance();
+        Calendar eventDate = Calendar.getInstance();
+        eventDate.setTime(date);
 
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(dataEvento);
+        LocalDate localDateToday = new LocalDate(calendar);
+        LocalDate localDateEvent = new LocalDate(eventDate);
 
-        if(((localDateHoje.isBefore(localDateEvento) || localDateHoje.equals(localDateEvento))&& localDateEvento.getMonthOfYear() == localDateHoje.getMonthOfYear())){
+        if(((localDateToday.isBefore(localDateEvent) || localDateToday.equals(localDateEvent))&& localDateEvent.getMonthOfYear() == localDateToday.getMonthOfYear())){
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public static boolean isYear(Date date) {
-        Calendar hoje = Calendar.getInstance();
-        Calendar dataEvento = Calendar.getInstance();
-        dataEvento.setTime(date);
+        Calendar today = Calendar.getInstance();
+        Calendar eventDate = Calendar.getInstance();
+        eventDate.setTime(date);
 
-        LocalDate localDateHoje = new LocalDate(hoje);
-        LocalDate localDateEvento = new LocalDate(dataEvento);
+        LocalDate localDateToday = new LocalDate(today);
+        LocalDate localDateEvent = new LocalDate(eventDate);
 
-        if((localDateHoje.isBefore(localDateEvento) || localDateHoje.equals(localDateEvento)) && localDateEvento.getYear() == localDateHoje.getYear()){
+        if((localDateToday.isBefore(localDateEvent) || localDateToday.equals(localDateEvent)) && localDateEvent.getYear() == localDateToday.getYear()){
             return true;
-        }else {
+        } else {
             return false;
         }
     }

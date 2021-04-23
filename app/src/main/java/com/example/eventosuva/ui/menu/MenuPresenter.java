@@ -2,7 +2,7 @@ package com.example.eventosuva.ui.menu;
 
 import android.os.AsyncTask;
 
-import com.example.eventosuva.control.EventosDAO;
+import com.example.eventosuva.control.EventsDAO;
 
 public class MenuPresenter implements MenuContract.Presenter {
 
@@ -15,10 +15,10 @@ public class MenuPresenter implements MenuContract.Presenter {
     public void getEventsList(MenuContract.onGetEventsListener listener) {
         try {
             String url = "http://cadier.com.br/uvapp/wsListEventos.php";
-            String tipo = "GET";
+            String type = "GET";
             if (task == null || task.getStatus() != AsyncTask.Status.RUNNING) {
                 task = new EventsListTask(listener);
-                task.execute(url, tipo);
+                task.execute(url, type);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,14 +42,14 @@ public class MenuPresenter implements MenuContract.Presenter {
 
         @Override
         protected String doInBackground(String... params) {
-            EventosDAO aD = new EventosDAO();
-            String aux = null;
+            EventsDAO aD = new EventsDAO();
+            String requestResult = null;
             if(params[1].equalsIgnoreCase("GET")){
-                aux = aD.request(params[0]);
+                requestResult = aD.request(params[0]);
             } else if(params[1].equalsIgnoreCase("POST") || params[1].equalsIgnoreCase("PUT")){
-                aux = aD.post(params[0], params[1], params[2]);
+                requestResult = aD.post(params[0], params[1], params[2]);
             }
-            return aux;
+            return requestResult;
         }
 
         @Override
@@ -61,5 +61,4 @@ public class MenuPresenter implements MenuContract.Presenter {
             }
         }
     }
-
 }

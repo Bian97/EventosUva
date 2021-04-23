@@ -1,6 +1,6 @@
 package com.example.eventosuva.ui.grid;
 
-import com.example.eventosuva.model.Eventos;
+import com.example.eventosuva.model.Event;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,6 @@ public interface GridContract {
     }
 
     interface Presenter {
-        ArrayList<Eventos> createList(onCreateListListener listener, int choice, String json);
+        ArrayList<Event> createList(onCreateListListener listener, int choice, String json);
     }
-
 }

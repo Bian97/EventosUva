@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by Bian on 29/10/2017.
  */
 
-public class EventosDAO {
+public class EventsDAO {
     private int TIMEOUT_MILLISEC = 300000;
     private static final String USER_AGENT = "Mozilla/5.0";
 

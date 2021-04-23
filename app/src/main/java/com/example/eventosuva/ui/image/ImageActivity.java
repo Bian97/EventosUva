@@ -14,7 +14,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 public class ImageActivity extends AppCompatActivity {
 
-    PhotoView imagem;
+    PhotoView image;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -22,12 +22,12 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setup();
 
-        String caminho = getIntent().getStringExtra("caminho");
-        Glide.with(this).load("http://cadier.com.br/uvapp/Imagens/"+caminho).into(imagem);
+        String path = getIntent().getStringExtra("path");
+        Glide.with(this).load("http://cadier.com.br/uvapp/Imagens/"+path).into(image);
     }
 
     public void setup(){
         setContentView(R.layout.activity_fullsize);
-        imagem = findViewById(R.id.imagemFull);
+        image = findViewById(R.id.imagemFull);
     }
 }

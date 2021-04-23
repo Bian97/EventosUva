@@ -11,5 +11,4 @@ public interface MenuContract {
     interface Presenter {
         void getEventsList(onGetEventsListener listener);
     }
-
 }

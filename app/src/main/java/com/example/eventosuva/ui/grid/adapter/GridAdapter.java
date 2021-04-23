@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.eventosuva.R;
-import com.example.eventosuva.model.Eventos;
+import com.example.eventosuva.model.Event;
 
 import java.util.ArrayList;
 
@@ -24,14 +24,14 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by Victor on 21/11/2017.
  */
 
-public class GridAdapter extends ArrayAdapter<Eventos> implements StickyListHeadersAdapter {
+public class GridAdapter extends ArrayAdapter<Event> implements StickyListHeadersAdapter {
 
-    private ArrayList<Eventos> eventsList;
+    private ArrayList<Event> eventsList;
     private Context context;
     private int layoutResourceId;
     private LayoutInflater inflater;
 
-    public GridAdapter(Context context, int layoutResourceId, ArrayList<Eventos> eventsList) {
+    public GridAdapter(Context context, int layoutResourceId, ArrayList<Event> eventsList) {
         super(context,layoutResourceId,eventsList);
         inflater = ((Activity) context).getLayoutInflater();
         this.eventsList = eventsList;
@@ -52,16 +52,16 @@ public class GridAdapter extends ArrayAdapter<Eventos> implements StickyListHead
         if(row == null) {
             holder = new ViewHolder();
             row = inflater.inflate(layoutResourceId, parent, false);
-            holder.nome = row.findViewById(R.id.titulo);
-            holder.imagem = row.findViewById(R.id.imagem);
+            holder.name = row.findViewById(R.id.titulo);
+            holder.image = row.findViewById(R.id.imagem);
             row.setTag(holder);
         }
         else {
             holder = (ViewHolder) row.getTag();
         }
-        Eventos evento = eventsList.get(position);
-        holder.nome.setText(evento.getNome());
-        Glide.with(getContext()).load("http://cadier.com.br/uvapp/Imagens/"+evento.getCaminho()).into(holder.imagem);
+        Event event = eventsList.get(position);
+        holder.name.setText(event.getName());
+        Glide.with(getContext()).load("http://cadier.com.br/uvapp/Imagens/"+event.getPath()).into(holder.image);
         return row;
     }
 
@@ -79,14 +79,17 @@ public class GridAdapter extends ArrayAdapter<Eventos> implements StickyListHead
 
         String headerText = "";
 
-        switch (((Eventos)eventsList.get(position)).getCampus()) {
+        switch (((Event)eventsList.get(position)).getCampus()) {
             case 0:
-                headerText = "Tijuca";
+                headerText = "NET";
                 break;
             case 1:
-                headerText = "Barra da Tijuca";
+                headerText = "Tijuca";
                 break;
             case 2:
+                headerText = "Barra da Tijuca";
+                break;
+            case 3:
                 headerText = "Cabo Frio";
         }
         holder.text.setText(headerText);
@@ -103,7 +106,7 @@ public class GridAdapter extends ArrayAdapter<Eventos> implements StickyListHead
     }
 
     static class ViewHolder {
-        TextView nome;
-        ImageView imagem;
+        TextView name;
+        ImageView image;
     }
 }
