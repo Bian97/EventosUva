@@ -12,9 +12,6 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by Bian on 29/10/2017.
- */
 
 public class EventsDAO {
     private int TIMEOUT_MILLISEC = 300000;
@@ -30,13 +27,6 @@ public class EventsDAO {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("User-Agent", USER_AGENT);
             int responseCode = conn.getResponseCode();
-            if(responseCode == HttpURLConnection.HTTP_OK){
-                //System.out.println("CONECTOU! " + responseCode);
-            } else {
-                //System.out.println("DEU RUIM!!");
-            }
-            /*System.out.println("\nSending 'GET' request to URL : " + stringUrl);
-            System.out.println("Response Code : " + responseCode);*/
 
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
@@ -47,13 +37,11 @@ public class EventsDAO {
                 response.append(inputLine);
             }
             in.close();
-            //System.out.println("CONECTOU!"+response.toString());
+
             return response.toString();
         } catch (MalformedJsonException e) {
-            //System.out.println("Erro: " + e.getMessage());
             return null;
         } catch (IOException e) {
-            //System.out.println("Erro: " + e.getMessage());
             return null;
         } finally {
             if(conn != null) {
@@ -64,7 +52,6 @@ public class EventsDAO {
                     in.close();
                 }
             } catch(IOException e){
-                //System.out.println("Erro!! "+ e.getMessage());
             }
         }
     }

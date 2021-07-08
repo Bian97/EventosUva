@@ -6,9 +6,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by Bian on 26/11/2017.
- */
 
 public class Event implements Parcelable {
     private int id, campus;

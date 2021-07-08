@@ -21,9 +21,6 @@ import java.util.Collections;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-/**
- * Created by Bian on 21/11/2017.
- */
 
 public class GridActivity extends AppCompatActivity implements GridContract.onCreateListListener {
 
@@ -41,28 +38,31 @@ public class GridActivity extends AppCompatActivity implements GridContract.onCr
         this.setup();
         position = getIntent().getIntExtra("position",-1);
         json = getIntent().getStringExtra("json");
-        events = presenter.createList(this, position, json);
 
-        Collections.sort(events, new SortByCampi());
+        if(!json.contains("vazio")) {
 
-        StickyListHeadersAdapter adapter = new GridAdapter(this, R.layout.activity_grid_image, events);
-        listView.setAdapter(adapter);
+            events = presenter.createList(this, position, json);
 
-        //listView.setAdapter(new GridAdapter(GridActivity.this, R.layout.activity_grid_image, eventos));
+            Collections.sort(events, new SortByCampi());
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(GridActivity.this, DetailsActivity.class);
-                intent.putExtra("event", events.get(position));
-                startActivity(intent);
-            }
-        });
+            StickyListHeadersAdapter adapter = new GridAdapter(this, R.layout.activity_grid_image, events);
+            listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(GridActivity.this, DetailsActivity.class);
+                    intent.putExtra("event", events.get(position));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Toast.makeText(getApplicationContext(), "Não existem eventos disponiveis nesta categoria!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setup(){
         setContentView(R.layout.fragment_grid_view);
-        //listView = findViewById(R.id.list);
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         presenter = new GridPresenter();
         events = new ArrayList<>();

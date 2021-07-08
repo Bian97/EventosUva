@@ -13,9 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventosuva.R;
 import com.example.eventosuva.ui.grid.GridActivity;
 
-/**
- * Created by Bian on 19/12/2017.
- */
 
 public class MenuActivity extends AppCompatActivity implements MenuContract.onGetEventsListener {
 
@@ -35,8 +32,6 @@ public class MenuActivity extends AppCompatActivity implements MenuContract.onGe
         setContentView(R.layout.fragment_category);
         Toolbar topToolBar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(topToolBar);
-
-        //Toast.makeText(this, R.string.app_creators, Toast.LENGTH_LONG).show();
     }
 
     public void nextActivity(int position) {

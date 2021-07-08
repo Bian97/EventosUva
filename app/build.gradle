@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "com.example.eventosuva"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName '1.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -18,7 +18,10 @@ android {
     }
     productFlavors {
     }
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '30.0.2'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {

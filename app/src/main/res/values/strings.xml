@@ -3,7 +3,7 @@
     <string name="app_creators">Criado por Bian Medeiros e Victor Franklin</string>
     <string name="name_text">NOME</string>
     <string name="information_text">INFORMAÇÕES SOBRE O EVENTO</string>
-    <string name="events_new">ADICIONADOS RECENTES</string>
+    <string name="events_new">ADICIONADOS RECENTEMENTE</string>
     <string name="events_today">EVENTOS DE HOJE</string>
     <string name="events_seven">PRÓXIMOS 7 DIAS</string>
     <string name="events_month">EVENTOS ESTE MÊS</string>

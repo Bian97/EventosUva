@@ -19,11 +19,6 @@ import java.util.ArrayList;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
-
-/**
- * Created by Victor on 21/11/2017.
- */
-
 public class GridAdapter extends ArrayAdapter<Event> implements StickyListHeadersAdapter {
 
     private ArrayList<Event> eventsList;
